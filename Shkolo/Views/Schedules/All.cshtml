@@ -1,0 +1,58 @@
+﻿@model IEnumerable<AllScheduleModel>
+
+@{ViewData["Title"] = "All Schedules";}
+
+<h2 class="display-4">Schedules : </h2>
+
+<div class="row">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Term_Number</th>
+                <th scope="col">DayOfWeek</th>
+                <th scope="col">SchoolHour</th>
+                <th scope="col">SubjectName</th>
+                <th scope="col">TeachersName</th>
+            </tr>
+        </thead>
+
+
+        @foreach (var sch in Model)
+        {
+
+            <tbody>
+                <tr>
+                    <td>@sch.Term_Number</td>
+
+                    @if (@sch.DayOfWeek == 1)
+                    {
+                        <td>Monday</td>
+                    }
+                    @if (@sch.DayOfWeek == 2)
+                    {
+                        <td>Tuesday</td>
+                    }
+                    @if (@sch.DayOfWeek == 3)
+                    {
+                        <td>Wednesday</td>
+                    }
+                    @if (@sch.DayOfWeek == 4)
+                    {
+                        <td>Thursday</td>
+                    }
+                    @if (@sch.DayOfWeek == 5)
+                    {
+                        <td>Friday</td>
+                    }
+
+                    <td>@sch.SchoolHour</td>
+                    <td>@sch.SubjectName</td>
+                    <td>@sch.TeacherName</td>
+                </tr>
+            </tbody>
+        }
+
+    </table>
+
+</div>

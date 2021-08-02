@@ -3,52 +3,54 @@
     using Microsoft.AspNetCore.Mvc;
     using Shkolo.Data;
     using Shkolo.Data.Models;
-    using Shkolo.Models.Teachers;
+    using Shkolo.Models.Subjects;
     using System.Linq;
 
-    public class TeachersController : Controller
+    public class SubjectsController:Controller
     {
         private readonly ShkoloDbContext db;
-        public TeachersController(ShkoloDbContext db)
+        public SubjectsController(ShkoloDbContext db)
         {
             this.db = db;
         }
 
         public IActionResult All()
         {
-            var teachers = this.db
-            .Teachers
-            .OrderBy(x => x.TeacherId)
-            .Select(x => new AddTeacherFormModel
+            var subjects = this.db
+            .Subjects
+            .OrderBy(x => x.SubjectId)
+            .Select(x => new AddSubjectFormModel
             {
-                TeacherId=x.TeacherId,
+                SubjectId=x.SubjectId,
                 Name = x.Name,
 
 
             }).ToList();
 
-            return View(teachers);
+            return View(subjects);
         }
+
         public IActionResult Add() => View();
 
         [HttpPost]
-        public IActionResult Add(AddTeacherFormModel teacher)
+        public IActionResult Add(AddSubjectFormModel subject)
         {
             if (!ModelState.IsValid)
             {
-                return View(teacher);
+                return View(subject);
             }
 
-            var teacherData = new Teacher
+            var subjectData = new Subject
             {
-                Name = teacher.Name,
+                Name = subject.Name,
             };
 
-            db.Teachers.Add(teacherData);
+            db.Subjects.Add(subjectData);
             db.SaveChanges();
 
 
             return RedirectToAction("Index", "Home");
         }
+
     }
 }
