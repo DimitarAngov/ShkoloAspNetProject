@@ -1,0 +1,36 @@
+﻿@using Shkolo.Services.Statistics;
+@model StatisticsServiceModel;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome. Today SHKOLO HAVE :</h1>
+
+    <div class="jumbotron" id="statistics">
+        <div class="row" >
+            <h2 class="col-md-3 text-center" id="total-students">Students - @Model.TotalStudents</h2>
+            <h2 class="col-md-3 text-center" id="total-subjects">Subjects - @Model.TotalSubjects</h2>
+            <h2 class="col-md-3 text-center" id="total-teachers">Teachers - @Model.TotalTeachers</h2>
+            <h2 class="col-md-3 text-center" id="total-courses">Courses - @Model.TotalCouses</h2>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script>
+        $('#statistics-button').on('click', ev => {
+            $.get('/api/statistics', (data) => {
+                $('#total-students').text(data.totalStudents + " Students");
+                $('#total-subjects').text(data.totalSubjects + " Subjects");
+                $('#total-teachers').text(data.totalTeachers + " Teachers");
+                $('#total-teachers').text(data.totalCourses + " Courses");
+                $('#statistics').removeClass('d-none');
+                $('#statistics-button').hide();
+            });
+        });
+    </script>
+}
+

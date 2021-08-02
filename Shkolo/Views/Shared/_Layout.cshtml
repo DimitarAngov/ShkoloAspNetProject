@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Best School system Shkolo</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Shkolo </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="dropdown nav-item">
+                            <button class="btn btn-secondary dropdown-toggle m-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                ADD
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="nav-link dropdown-item" asp-area="" asp-controller="Students" asp-action="Add">Add Students</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Grades" asp-action="Add">Add Grages</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Schedules" asp-action="Add">Add Schedules</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="ScheduleHours" asp-action="Add">Add Schedule Hours</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Courses" asp-action="Add">Add Couses</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Teachers" asp-action="Add">Add Teachers</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Subjects" asp-action="Add">Add Subjects</a>
+                            </div>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                ALL
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" asp-area="" asp-controller="Students" asp-action="All">All Students</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Grades" asp-action="All">All Grage</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Schedules" asp-action="All">All Schedule</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="ScheduleHours" asp-action="All">All Schedule Hours</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; @DateTime.UtcNow.Year- Shkolo  
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

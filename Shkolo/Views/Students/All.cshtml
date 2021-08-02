@@ -1,0 +1,37 @@
+﻿@model IEnumerable<AddStudentFormModel>
+
+@{ViewData["Title"] = "All Students";}
+
+<h2 class="display-4">Students : </h2>
+<div class="row">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">NumInClass</th>
+                <th scope="col">Name</th>
+                <th scope="col">DateOfBirth</th>
+                <th scope="col">PlaceOfBirth</th>
+                <th scope="col">Address</th>
+                <th scope="col">Phone</th>
+            </tr>
+        </thead>
+        @foreach (var st in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>@st.NumInClass</td>
+                    <td>@st.Name</td>
+                    <td>@st.DateOfBirth</td>
+                    <td>@st.PlaceOfBirth</td>
+                    <td>@st.Address</td>
+                    <td>@st.Phone</td>
+                </tr>
+            </tbody>
+        }
+    </table>
+
+</div>
+
+
+
