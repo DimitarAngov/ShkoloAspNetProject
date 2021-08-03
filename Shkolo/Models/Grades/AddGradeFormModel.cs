@@ -1,18 +1,18 @@
-﻿namespace Shkolo.Data.Models
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+namespace Shkolo.Models.Grades
 {
-    using System.ComponentModel.DataAnnotations;
-    public class Grade
+    public class AddGradeFormModel
     {
         public int GradeId { get; set; }
-
+        
         [Required]
         [MaxLength(1)]
         public int Term_Number { get; set; }
         
         [Required]
         public int StudentCourseId { get; set; }
-
-         public StudentCourse StudentCourse { get; set; }
 
         [Required]
         [MaxLength(4)]
@@ -21,7 +21,6 @@
         [Required]
         [MaxLength(2)]
         public int TypeGradeId { get; set; }
-        public TypeGrade TypeGrade { get; set; }
 
         [Required]
         [MaxLength(10)]
@@ -29,6 +28,8 @@
 
         [MaxLength(100)]
         public string Description { get; set; }
-    }
 
+        public IEnumerable<StudentCourseModel> GStudentCourses { get; set; }
+        public IEnumerable<TypeGradeModel> GTypeGrade { get; set; }
+    }
 }

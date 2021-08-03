@@ -1,5 +1,59 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model AddGradeFormModel
+
+@{ViewData["Title"] = "Add Grade";}
+
+
+<h2 class="text-center">Add Grade</h2>
+<div class="row">
+    <div class="col-md-8 col-sm-12 offset-md-2">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Term_Number">Term_Number</label>
+                <input asp-for="Term_Number" class="form-control" placeholder="1 or 2">
+                <span asp-validation-for="Term_Number" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StudentCourseId"></label>
+                <select asp-for="StudentCourseId" class="form-control">
+                    @foreach (var studentCourse in Model.GStudentCourses)
+                    {
+                        <option value=@studentCourse.StudentCourseId>@studentCourse.StudentName - @studentCourse.TeacherName - @studentCourse.SubjectName</option>
+                    }
+                </select>
+                <span asp-validation-for="StudentCourseId" class="small text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="GradeStudents">GradeStudents</label>
+                <input asp-for="GradeStudents" class="form-control" placeholder="x.xx ">
+                <span asp-validation-for="GradeStudents" class="small text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TypeGradeId"></label>
+                <select asp-for="TypeGradeId" class="form-control">
+                    @foreach (var typeGrade in Model.GTypeGrade)
+                    {
+                        <option value=@typeGrade.TypeGradeId>@typeGrade.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="TypeGradeId" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date">Date</label>
+                <input asp-for="Date" class="form-control" placeholder="xx-xx-xx ">
+                <span asp-validation-for="Date" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description">Description</label>
+                <input asp-for="Description" class="form-control" placeholder="Description">
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>
+
+            <input class="btn btn-primary float-right" type="submit" value="Save" />
+        </form>
+
+    </div>
+
+</div>
+

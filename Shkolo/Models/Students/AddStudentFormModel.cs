@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
     public class AddStudentFormModel
     {
+            public int StudentId { get; set; }
             [Required]
             [MaxLength(50)]
             public string Name { get; set; }
@@ -29,7 +30,7 @@
             [Required]
             [MinLength(1)]
             [MaxLength(2)]
-            public string NumInClass { get; set; }
+            public int NumInClass { get; set; }
 
             [Required]
             [MinLength(1)]

@@ -1,5 +1,47 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<AllScheduleHourModel>
+
+@{ViewData["Title"] = "All ScheduleHours";}
+
+<h2 class="display-4">ScheduleHours : </h2>
+
+<div class="row">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Term_Number</th>
+                <th scope="col">Date</th>
+                <th scope="col">DayOfWeek</th>
+                <th scope="col">SchoolHour</th>
+                <th scope="col">ScheduleSubjectName</th>
+                <th scope="col">ScheduleTeacherName</th>
+                <th scope="col">Topics</th>
+                <th scope="col">AbsenceStudentNimberInClass</th>
+            </tr>
+        </thead>
+
+
+        @foreach (var schh in Model)
+        {
+
+            <tbody>
+                <tr>
+                    <td class="text-center">@schh.Term_Number</td>
+                    <td>@schh.Date</td>
+                    <td class="text-center">@schh.DayOfWeek</td>
+                    <td class="text-center">@schh.SchoolHour</td>
+                    <td>@schh.ScheduleSubjectName</td>
+                    <td>@schh.ScheduleTeacherName</td>
+                    <td>@schh.Topics</td>
+                   @if (schh.AbsenceStudentNimberInClass!=99)
+                   {
+                    <td class="text-center">@schh.AbsenceStudentNimberInClass</td>
+                   }
+                    
+                </tr>
+            </tbody>
+        }
+
+    </table>
+
+</div>

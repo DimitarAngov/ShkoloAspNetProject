@@ -24,7 +24,7 @@
             .Select(x => new AddStudentFormModel
             {
                 Name=x.Name,
-                NumInClass=x.NumInClass.ToString(),
+                NumInClass=x.NumInClass,
                 DateOfBirth=x.DateOfBirth,
                 PlaceOfBirth=x.PlaceOfBirth,
                 Address=x.Address,
@@ -56,7 +56,7 @@
                 PlaceOfBirth = student.PlaceOfBirth,
                 Address = student.Address,
                 Phone = student.Phone,
-                NumInClass = int.Parse(student.NumInClass),
+                NumInClass = student.NumInClass,
                 DiaryId = int.Parse(student.DiaryId),
                 ParentId= int.Parse(student.ParentId),
                 DoctorId = int.Parse(student.DoctorId),
