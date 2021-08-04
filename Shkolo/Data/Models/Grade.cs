@@ -6,7 +6,7 @@
         public int GradeId { get; set; }
 
         [Required]
-        [MaxLength(1)]
+        [Range(1,2)]
         public int Term_Number { get; set; }
         
         [Required]
@@ -19,7 +19,7 @@
         public string GradeStudents { get; set; }
 
         [Required]
-        [MaxLength(2)]
+        [Range(1,20)]
         public int TypeGradeId { get; set; }
         public TypeGrade TypeGrade { get; set; }
 

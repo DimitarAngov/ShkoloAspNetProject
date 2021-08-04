@@ -11,13 +11,13 @@
         }
         public int ScheduleId { get; set; }
 
-        [MaxLength(1)]
+        [Range(1,2)]
         public int Term_Number { get; set; }
 
-        [MaxLength(2)]
+        [Range(1,5)]
         public int DayOfWeek { get; set; }
 
-        [MaxLength(2)]
+        [Range(1,11)]
         public int SchoolHour { get; set; }
 
         [MaxLength(10)]

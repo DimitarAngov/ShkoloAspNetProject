@@ -17,10 +17,21 @@
             this.db = db;
         }
 
-        public IActionResult All()
+        public IActionResult All(string teacherName, string subjectName)
         {
-            var scheduleHour = this.db
-                .ScheduleHours
+            var sheduleHourQuery = this.db.ScheduleHours.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(subjectName))
+            {
+                sheduleHourQuery = sheduleHourQuery.Where(x => x.Schedule.Course.Subject.Name == subjectName);
+            }
+
+            if (!string.IsNullOrWhiteSpace(teacherName))
+            {
+                sheduleHourQuery = sheduleHourQuery.Where(x => x.Schedule.Course.Teacher.Name == teacherName);
+            }
+
+            var scheduleHour = sheduleHourQuery
                 .OrderBy(x => x.Schedule.Term_Number)
                 
                 .Select(x => new AllScheduleHourModel
@@ -35,7 +46,22 @@
                     AbsenceStudentNimberInClass=x.Student.NumInClass
                 }).ToList();
 
-            return View(scheduleHour);
+            var subjectN = this.db
+                .Subjects
+                .Select(x => x.Name)
+                .ToList();
+
+            var teacherN = this.db
+                .Teachers
+                .Select(x => x.Name)
+                .ToList();
+
+            return View(new ScheduleHourSearchViewModel 
+            {
+                AllTeachersName=teacherN,
+                AllSubjectsName=subjectN,
+                AllScheduleHours=scheduleHour
+            });
         }
 
         public IActionResult Add() => View(new AddScheduleHourFormModel

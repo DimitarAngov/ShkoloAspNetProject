@@ -17,17 +17,17 @@
         public string Topics { get; set; }
        
         [Required]
-        [MaxLength(4)]
+        [Range(1,2000)]
         public int StudentId { get; set; }
         public Student Student { get; set; }
 
         [Required]
-        [MaxLength(1)]
+        [Range(1,10)]
         public int TypeAbsenceId { get; set; }
         public TypeAbsence TypeAbsence { get; set; }
 
         [Required]
-        [MaxLength(1)]
+        [Range(1,10)]
         public int TypeAbsenceReasonId { get; set; }
         public TypeAbsenceReason TypeAbsenceReason { get; set; }
     }

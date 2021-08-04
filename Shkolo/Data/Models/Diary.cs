@@ -8,6 +8,8 @@
     {        
         public int DiaryId { get; set; }
         public string SchoolName { get; set; }
+        
+        [Range(1,12)]
         public int NumberClassName { get; set; }
        
         [Required]

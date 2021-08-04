@@ -8,17 +8,15 @@
         public int ScheduleId { get; set; }
 
         [Required]
-        [MaxLength(1)]
+        [Range(1,2)]
         public int Term_Number { get; set; }
 
         [Required]
-        [MinLength(1)]
-        [MaxLength(2)]
+        [Range(1, 5)]
         public int DayOfWeek { get; set; }
 
         [Required]
-        [MinLength(1)]
-        [MaxLength(2)]
+        [Range(1, 11)]
         public int SchoolHour { get; set; }
 
         [MaxLength(10)]

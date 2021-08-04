@@ -31,7 +31,7 @@
         [MaxLength(20)]
         public string Phone { get; set; }
 
-        [MaxLength(2)]
+        [Range(1,12)]
         public int NumInClass { get; set; }
         public int ParentId { get; set; }
         public Parent Parent { get; set; }

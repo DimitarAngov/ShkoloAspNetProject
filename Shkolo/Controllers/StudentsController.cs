@@ -21,7 +21,7 @@
             var students = this.db
             .Students
             .OrderBy(x=>x.NumInClass)
-            .Select(x => new AddStudentFormModel
+            .Select(x => new AllStudentViewModel
             {
                 Name=x.Name,
                 NumInClass=x.NumInClass,

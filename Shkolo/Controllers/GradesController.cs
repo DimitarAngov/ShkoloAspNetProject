@@ -16,10 +16,31 @@
             this.db = db;
         }
 
-        public IActionResult All()
+        public IActionResult All(string searchTerm,string studentName,string subjectName,string gradeStudent)
         {
-            var grade = this.db
-                .Grades
+            var gradeQuery = this.db.Grades.AsQueryable();
+            
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                gradeQuery = gradeQuery.Where(x => x.StudentCourse.Students.Name.ToLower().Contains(searchTerm.ToLower()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(studentName))
+            {
+                gradeQuery = gradeQuery.Where(x => x.StudentCourse.Students.Name==studentName);
+            }
+
+            if (!string.IsNullOrWhiteSpace(subjectName))
+            {
+                gradeQuery = gradeQuery.Where(x => x.StudentCourse.Courses.Subject.Name == subjectName);
+            }
+
+            if (!string.IsNullOrWhiteSpace(gradeStudent))
+            {
+                gradeQuery = gradeQuery.Where(x => x.GradeStudents == gradeStudent);
+            }
+
+            var grades = gradeQuery
                 .OrderBy(x=>x.Term_Number)
                 .ThenBy(x=>x.StudentCourse.Courses.Subject.Name)
                 .Select(x => new AllGradeModel
@@ -32,7 +53,32 @@
                     TypeGradeName = x.TypeGrade.Name
                 }).ToList();
 
-            return View(grade);
+            var studentN = this.db
+                .Students
+                .Select(x => x.Name)
+                .ToList();
+
+            var subjectN = this.db
+                .Subjects
+                .Select(x => x.Name)
+                .ToList();
+
+            var gradeStudents = this.db
+                .Grades
+                .Select(x => x.GradeStudents)
+                .OrderByDescending(x=>x)
+                .Distinct()
+                .ToList();
+
+            return View(new AllGradeSearchViewModel
+            {
+                AllGradesStudents=gradeStudents,
+                AllStudentsName=studentN,
+                AllSubjectsName=subjectN,
+                AllGrades = grades,
+                SearchTerm=searchTerm,
+               
+            }) ;
         }
 
         public IActionResult Add() => View(new AddGradeFormModel
@@ -82,6 +128,7 @@
            .Select(x => new StudentCourseModel
            {
                StudentCourseId = x.StudentCourseId,
+               StudentId=x.StudentId,
                StudentName = x.Students.Name,
                SubjectName=x.Courses.Subject.Name,
                TeacherName=x.Courses.Teacher.Name
