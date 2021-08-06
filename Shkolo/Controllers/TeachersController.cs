@@ -1,32 +1,19 @@
 ﻿namespace Shkolo.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using Shkolo.Data;
-    using Shkolo.Data.Models;
     using Shkolo.Models.Teachers;
-    using System.Linq;
-
+    using Shkolo.Services.Teachers;
+   
     public class TeachersController : Controller
     {
-        private readonly ShkoloDbContext db;
-        public TeachersController(ShkoloDbContext db)
+        private readonly ITeachersService teachersService;
+        public TeachersController(ITeachersService teachersService)
         {
-            this.db = db;
+            this.teachersService = teachersService;
         }
-
         public IActionResult All()
         {
-            var teachers = this.db
-            .Teachers
-            .OrderBy(x => x.TeacherId)
-            .Select(x => new AddTeacherFormModel
-            {
-                TeacherId=x.TeacherId,
-                Name = x.Name,
-
-
-            }).ToList();
-
+            var teachers=this.teachersService.GetAllTeachers();
             return View(teachers);
         }
         public IActionResult Add() => View();
@@ -39,15 +26,7 @@
                 return View(teacher);
             }
 
-            var teacherData = new Teacher
-            {
-                Name = teacher.Name,
-            };
-
-            db.Teachers.Add(teacherData);
-            db.SaveChanges();
-
-
+            this.teachersService.AddTeacher(teacher);
             return RedirectToAction("Index", "Home");
         }
     }

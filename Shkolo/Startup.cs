@@ -10,7 +10,11 @@ namespace Shkolo
     using Shkolo.Data;
     using Shkolo.Data.Infrastructure;
     using Shkolo.Data.Seeders;
+    using Shkolo.Services.Courses;
     using Shkolo.Services.Statistics;
+    using Shkolo.Services.Students;
+    using Shkolo.Services.Subjects;
+    using Shkolo.Services.Teachers;
 
     public class Startup
     {
@@ -45,7 +49,10 @@ namespace Shkolo
                 .AddControllersWithViews();
 
             services.AddTransient<IStatisticsService, StatisticsService>();
-
+            services.AddTransient<ITeachersService,TeachersService>();
+            services.AddTransient<ISubjectsService, SubjectsService>();
+            services.AddTransient<IStudentsService,StudentsService>();
+            services.AddTransient<ICoursesService, CoursesService>();
         }
 
         

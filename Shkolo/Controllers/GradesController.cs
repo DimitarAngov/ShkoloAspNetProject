@@ -22,7 +22,7 @@
             
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                gradeQuery = gradeQuery.Where(x => x.StudentCourse.Students.Name.ToLower().Contains(searchTerm.ToLower()));
+                gradeQuery = gradeQuery.Where(x => x.TypeGrade.Name.ToLower().Contains(searchTerm.ToLower()));
             }
 
             if (!string.IsNullOrWhiteSpace(studentName))
@@ -66,8 +66,8 @@
             var gradeStudents = this.db
                 .Grades
                 .Select(x => x.GradeStudents)
-                .OrderByDescending(x=>x)
-                .Distinct()
+                .Distinct() 
+                .OrderBy(x=>x)
                 .ToList();
 
             return View(new AllGradeSearchViewModel

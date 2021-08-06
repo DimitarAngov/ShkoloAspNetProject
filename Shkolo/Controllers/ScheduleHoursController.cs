@@ -17,9 +17,28 @@
             this.db = db;
         }
 
-        public IActionResult All(string teacherName, string subjectName)
+        public IActionResult All(string teacherName, 
+                                 string subjectName,
+                                 string searchTermOne,
+                                 string searchTermTwo,
+                                 string searchTermThree)
         {
             var sheduleHourQuery = this.db.ScheduleHours.AsQueryable();
+            
+            if (!string.IsNullOrWhiteSpace(searchTermOne))
+            {
+                sheduleHourQuery = sheduleHourQuery.Where(x => x.Schedule.DayOfWeek.ToString().Contains(searchTermOne.ToLower()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchTermTwo))
+            {
+                sheduleHourQuery = sheduleHourQuery.Where(x => x.Schedule.SchoolHour.ToString().Contains(searchTermTwo.ToLower()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchTermThree))
+            {
+                sheduleHourQuery = sheduleHourQuery.Where(x => x.Topics.ToLower().Contains(searchTermThree.ToLower()));
+            }
 
             if (!string.IsNullOrWhiteSpace(subjectName))
             {
@@ -30,10 +49,9 @@
             {
                 sheduleHourQuery = sheduleHourQuery.Where(x => x.Schedule.Course.Teacher.Name == teacherName);
             }
-
+            
             var scheduleHour = sheduleHourQuery
                 .OrderBy(x => x.Schedule.Term_Number)
-                
                 .Select(x => new AllScheduleHourModel
                 {
                     Term_Number = x.Schedule.Term_Number,
@@ -60,7 +78,9 @@
             {
                 AllTeachersName=teacherN,
                 AllSubjectsName=subjectN,
-                AllScheduleHours=scheduleHour
+                AllScheduleHours=scheduleHour,
+                SearchTermOne=searchTermOne,
+                SearchTermTwo=searchTermTwo
             });
         }
 

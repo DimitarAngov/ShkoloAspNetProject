@@ -17,7 +17,9 @@
 
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
-    <Folder Include="Services\Students\" />
+    <Folder Include="Services\Grades\" />
+    <Folder Include="Services\ScheduleHours\" />
+    <Folder Include="Services\Schedules\" />
   </ItemGroup>
 
 </Project>

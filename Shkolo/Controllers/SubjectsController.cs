@@ -1,35 +1,20 @@
 ﻿namespace Shkolo.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using Shkolo.Data;
-    using Shkolo.Data.Models;
     using Shkolo.Models.Subjects;
-    using System.Linq;
-
+    using Shkolo.Services.Subjects;
     public class SubjectsController:Controller
     {
-        private readonly ShkoloDbContext db;
-        public SubjectsController(ShkoloDbContext db)
+        private readonly ISubjectsService subjectsService;
+        public SubjectsController(ISubjectsService subjectsService)
         {
-            this.db = db;
+            this.subjectsService = subjectsService;
         }
-
         public IActionResult All()
         {
-            var subjects = this.db
-            .Subjects
-            .OrderBy(x => x.SubjectId)
-            .Select(x => new AddSubjectFormModel
-            {
-                SubjectId=x.SubjectId,
-                Name = x.Name,
-
-
-            }).ToList();
-
+            var subjects = this.subjectsService.GetAllSubjects();
             return View(subjects);
         }
-
         public IActionResult Add() => View();
 
         [HttpPost]
@@ -40,15 +25,7 @@
                 return View(subject);
             }
 
-            var subjectData = new Subject
-            {
-                Name = subject.Name,
-            };
-
-            db.Subjects.Add(subjectData);
-            db.SaveChanges();
-
-
+            this.subjectsService.AddSubject(subject);
             return RedirectToAction("Index", "Home");
         }
 

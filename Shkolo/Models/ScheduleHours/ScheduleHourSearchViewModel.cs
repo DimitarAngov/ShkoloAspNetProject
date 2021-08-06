@@ -8,7 +8,9 @@
         public IEnumerable<string> AllTeachersName { get; set; }
         public string SubjectName { get; set; }
         public IEnumerable<string> AllSubjectsName { get; set; }
-        public string SearchTerm { get; set; }
-        public IEnumerable<AllScheduleHourModel> AllScheduleHours { get; set; }
+        public string SearchTermOne { get; set; }
+        public string SearchTermTwo { get; set; }
+        public string SearchTermThree { get; set; }
+public IEnumerable<AllScheduleHourModel> AllScheduleHours { get; set; }
     }
 }

@@ -2,14 +2,11 @@
 {
     using Shkolo.Data;
     using System.Linq;
-
     public class StatisticsService:IStatisticsService
     {
         private readonly ShkoloDbContext data;
-
         public StatisticsService(ShkoloDbContext data)
             => this.data = data;
-
         public StatisticsServiceModel Total()
         {
             var totalStudents = this.data.Students.Count();

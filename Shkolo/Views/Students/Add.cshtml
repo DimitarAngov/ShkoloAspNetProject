@@ -38,7 +38,7 @@
                     <span asp-validation-for="NumInClass" class="small text-danger"></span>
                 </div>
                 <div class="row">
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label asp-for="DiaryId"></label>
                         <select asp-for="DiaryId" class="form-control">
                             @foreach (var diary in Model.SDiaries)
@@ -49,7 +49,7 @@
                         <span asp-validation-for="DiaryId" class="small text-danger"></span>
                     </div>
 
-                    <div class="form-group md-4">
+                    <div class="form-group col-md-4">
                         <label asp-for="ParentId"></label>
                         <select asp-for="ParentId" class="form-control">
                             @foreach (var parent in Model.SParents)
@@ -60,7 +60,7 @@
                         <span asp-validation-for="ParentId" class="small text-danger"></span>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label asp-for="DoctorId"></label>
                         <select asp-for="DoctorId" class="form-control">
                             @foreach (var doctor in Model.SDoctors)
