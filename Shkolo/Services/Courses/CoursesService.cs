@@ -28,12 +28,12 @@
             db.SaveChanges();
 
         }
-        public ICollection<AllCourseModel> GetAllCourses()
+        public ICollection<AllCourseViewModel> GetAllCourses()
         {
             var courses = this.db
             .Courses
             .OrderBy(x => x.CourseId)
-            .Select(x => new Models.Courses.AllCourseModel
+            .Select(x => new Models.Courses.AllCourseViewModel
             {
                 CourseId = x.CourseId,
                 TeacherName = x.Teacher.Name,

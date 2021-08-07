@@ -9,8 +9,10 @@ namespace Shkolo
     using Microsoft.Extensions.Hosting;
     using Shkolo.Data;
     using Shkolo.Data.Infrastructure;
-    using Shkolo.Data.Seeders;
     using Shkolo.Services.Courses;
+    using Shkolo.Services.Grades;
+    using Shkolo.Services.ScheduleHours;
+    using Shkolo.Services.Schedules;
     using Shkolo.Services.Statistics;
     using Shkolo.Services.Students;
     using Shkolo.Services.Subjects;
@@ -53,6 +55,9 @@ namespace Shkolo
             services.AddTransient<ISubjectsService, SubjectsService>();
             services.AddTransient<IStudentsService,StudentsService>();
             services.AddTransient<ICoursesService, CoursesService>();
+            services.AddTransient<ISchedulesService,SchedulesService>();
+            services.AddTransient<IScheduleHoursService, ScheduleHoursService>();
+            services.AddTransient<IGradesService,GradesService>();
         }
 
         

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Shkolo.Models.ScheduleHours
 {
-    public class AllScheduleHourModel
+    public class AllScheduleHourViewModel
     {
         public int ScheduleHourId { get; set; }
         public int Term_Number { get; set; }

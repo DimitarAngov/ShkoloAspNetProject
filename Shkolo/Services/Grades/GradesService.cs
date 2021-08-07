@@ -1,0 +1,120 @@
+﻿namespace Shkolo.Services.Grades
+{
+    using Shkolo.Data;
+    using Shkolo.Data.Models;
+    using Shkolo.Models.Grades;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    public class GradesService : IGradesService
+    {
+        private readonly ShkoloDbContext db;
+        public GradesService(ShkoloDbContext db)
+        {
+            this.db = db;
+        }
+        public void AddGrade(AddGradeFormModel grade)
+        {
+            var gradeData = new Grade
+            {
+                GradeId = grade.GradeId,
+                Term_Number = grade.Term_Number,
+                StudentCourseId = grade.StudentCourseId,
+                GradeStudents = grade.GradeStudents,
+                TypeGradeId = grade.TypeGradeId,
+                Date = grade.Date,
+                Description = grade.Description
+            };
+
+            db.Grades.Add(gradeData);
+            db.SaveChanges();
+        }
+
+        public ICollection<AllGradeViewModel> GetAllGrades(
+            string searchTerm,
+            string studentName,
+            string subjectName,
+            string gradeStudent)
+        {
+            var gradeQuery = this.db.Grades.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                gradeQuery = gradeQuery.Where(x => x.TypeGrade.Name.ToLower().Contains(searchTerm.ToLower()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(studentName))
+            {
+                gradeQuery = gradeQuery.Where(x => x.StudentCourse.Students.Name == studentName);
+            }
+
+            if (!string.IsNullOrWhiteSpace(subjectName))
+            {
+                gradeQuery = gradeQuery.Where(x => x.StudentCourse.Courses.Subject.Name == subjectName);
+            }
+
+            if (!string.IsNullOrWhiteSpace(gradeStudent))
+            {
+                gradeQuery = gradeQuery.Where(x => x.GradeStudents == gradeStudent);
+            }
+
+            var grades = gradeQuery
+                .OrderBy(x => x.Term_Number)
+                .ThenBy(x => x.StudentCourse.Courses.Subject.Name)
+                .Select(x => new AllGradeViewModel
+                {
+                    Term_Number = x.Term_Number,
+                    Date = x.Date,
+                    StudentName = x.StudentCourse.Students.Name,
+                    SubjectName = x.StudentCourse.Courses.Subject.Name,
+                    GradeStudent = x.GradeStudents,
+                    TypeGradeName = x.TypeGrade.Name
+                }).ToList();
+            
+            return grades;
+        }
+
+        public IEnumerable<StudentCourseModel> GetStudentCourses()
+        => this.db
+           .StudentsCourses
+           .Select(x => new StudentCourseModel
+           {
+               StudentCourseId = x.StudentCourseId,
+               StudentId = x.StudentId,
+               StudentName = x.Students.Name,
+               SubjectName = x.Courses.Subject.Name,
+               TeacherName = x.Courses.Teacher.Name
+           })
+           .ToList();
+
+        public IEnumerable<TypeGradeModel> GetTypeGrades()
+        => this.db
+           .TypeGrades
+           .Select(x => new TypeGradeModel
+           {
+               TypeGradeId = x.TypeGradeId,
+               Name = x.Name
+           })
+           .ToList();
+
+        public IEnumerable<string> SubjectN()
+            =>this.db
+                .Subjects
+                .Select(x => x.Name)
+                .ToList();
+
+        public IEnumerable<string> StudenttN()
+            =>this.db
+                .Students
+                .Select(x => x.Name)
+                .ToList();
+        public IEnumerable<string> GradeStudents()
+            =>this.db
+                .Grades
+                .Select(x => x.GradeStudents)
+                .Distinct()
+                .OrderBy(x=>x)
+                .ToList();
+
+    }
+}

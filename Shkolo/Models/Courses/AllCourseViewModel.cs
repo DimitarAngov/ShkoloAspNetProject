@@ -5,7 +5,7 @@
     using Shkolo.Models.Teachers;
     using System.Collections.Generic;
 
-    public class AllCourseModel
+    public class AllCourseViewModel
     {
         public int CourseId { get; set; }
         public string SubjectName { get; set; }

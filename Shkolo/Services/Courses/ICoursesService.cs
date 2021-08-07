@@ -10,7 +10,7 @@ namespace Shkolo.Services.Courses
 {
     public interface ICoursesService
     {
-        public ICollection<AllCourseModel> GetAllCourses();
+        public ICollection<AllCourseViewModel> GetAllCourses();
         public IEnumerable<AddTeacherFormModel> GetCourseTeachers();
         public IEnumerable<AddSubjectFormModel> GetCourseSubjects();
         public IEnumerable<TypeSubjectModel> GetCourseTypeSubjects();

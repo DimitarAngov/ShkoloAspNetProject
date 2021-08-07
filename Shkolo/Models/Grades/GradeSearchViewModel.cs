@@ -11,6 +11,6 @@
         public string GradeStudent { get; set; }
         public IEnumerable<string> AllGradesStudents { get; set; }
         public string SearchTerm { get; set; }
-        public IEnumerable<AllGradeModel> AllGrades { get; set; }
+        public IEnumerable<AllGradeViewModel> AllGrades { get; set; }
     }
 }

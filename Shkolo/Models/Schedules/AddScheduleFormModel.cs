@@ -25,6 +25,6 @@
         [MaxLength(10)]
         public string ToTime { get; set; }
         public int CourseId { get; set; }
-        public IEnumerable<AllCourseModel> SchCourses { get; set; }
+        public IEnumerable<AllCourseViewModel> SchCourses { get; set; }
     }
 }

@@ -31,7 +31,7 @@
         [Range(1,10)]
         public int TypeAbsenceReasonId { get; set; }
 
-        public IEnumerable<AllScheduleModel> SchSchedule { get; set; }
+        public IEnumerable<AllScheduleViewModel> SchSchedule { get; set; }
         public IEnumerable<AddStudentFormModel> SchStudent { get; set; }
         public IEnumerable<ScheduleHourTypeAbsence> SchTypeAbsence { get; set; }
         public IEnumerable<ScheduleHourTypeAbsenceReason> SchTypeAbsenceReason { get; set; }

@@ -1,7 +1,7 @@
 ﻿namespace Shkolo.Models.Schedules
 {
     using System.ComponentModel.DataAnnotations;
-    public class AllScheduleModel
+    public class AllScheduleViewModel
     {
         public int ScheduleId { get; set; }
         public int Term_Number { get; set; }

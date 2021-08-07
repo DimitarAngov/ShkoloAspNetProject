@@ -11,6 +11,6 @@
         public string SearchTermOne { get; set; }
         public string SearchTermTwo { get; set; }
         public string SearchTermThree { get; set; }
-public IEnumerable<AllScheduleHourModel> AllScheduleHours { get; set; }
+public IEnumerable<AllScheduleHourViewModel> AllScheduleHours { get; set; }
     }
 }

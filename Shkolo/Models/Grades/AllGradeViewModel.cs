@@ -1,6 +1,6 @@
 ﻿namespace Shkolo.Models.Grades
 {
-    public class AllGradeModel
+    public class AllGradeViewModel
     {
         public int GradeId { get; set; }
         public int Term_Number { get; set; }
