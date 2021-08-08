@@ -4,7 +4,7 @@
     using Shkolo.Models.Students;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    public class AddScheduleHourFormModel
+    public class ScheduleHourFormModel
     {
         public int ScheduleHourId { get; set; }
 
@@ -32,7 +32,7 @@
         public int TypeAbsenceReasonId { get; set; }
 
         public IEnumerable<AllScheduleViewModel> SchSchedule { get; set; }
-        public IEnumerable<AddStudentFormModel> SchStudent { get; set; }
+        public IEnumerable<StudentFormModel> SchStudent { get; set; }
         public IEnumerable<ScheduleHourTypeAbsence> SchTypeAbsence { get; set; }
         public IEnumerable<ScheduleHourTypeAbsenceReason> SchTypeAbsenceReason { get; set; }
 

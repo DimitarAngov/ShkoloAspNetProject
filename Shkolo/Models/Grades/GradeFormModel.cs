@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shkolo.Models.Grades
 {
-    public class AddGradeFormModel
+    public class GradeFormModel
     {
         public int GradeId { get; set; }
         

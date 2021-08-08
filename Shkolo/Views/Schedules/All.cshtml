@@ -7,7 +7,7 @@
 <div class="row">
 
     <table class="table">
-        <thead>
+        <thead class="badge-info">
             <tr>
                 <th scope="col">Term_Number</th>
                 <th scope="col">DayOfWeek</th>
@@ -49,6 +49,16 @@
                     <td>@sch.SchoolHour</td>
                     <td>@sch.SubjectName</td>
                     <td>@sch.TeacherName</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Schedules",
+                         new { id = sch.ScheduleId},
+                         new { @class = "btn btn-success" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", "Schedules",
+                         new { id = sch.ScheduleId },
+                         new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
+                    </td>
                 </tr>
             </tbody>
         }

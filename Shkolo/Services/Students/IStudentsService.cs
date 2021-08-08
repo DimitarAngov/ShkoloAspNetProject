@@ -9,6 +9,10 @@
         public IEnumerable<StudentDiaryModel> GetStudentDiary();
         public IEnumerable<StudentParentModel> GetStudentParent();
         public IEnumerable<StudentDoctorModel> GetStudentDoctor();
-        public void AddStudent(AddStudentFormModel student);
+        public void AddStudent(StudentFormModel student);
+        public StudentFormModel FindById(int id);
+        public void Edit(int id, StudentFormModel student);
+        public void Delete(int id);
+
     }
 }

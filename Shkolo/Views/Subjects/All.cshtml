@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AddSubjectFormModel>
+﻿@model IEnumerable<SubjectFormModel>
 
 @{ViewData["Title"] = "All Subjects";}
 
@@ -6,7 +6,7 @@
 <div class="row">
 
     <table class="table">
-        <thead>
+        <thead class="badge-info">
             <tr>
                 <th scope="col">SubjectId</th>
                 <th scope="col">Name</th>
@@ -18,6 +18,16 @@
                 <tr>
                     <td>@sbj.SubjectId</td>
                     <td>@sbj.Name</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Subjects",
+                       new { id = sbj.SubjectId },
+                       new { @class = "btn btn-success"})
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", "Subjects",
+                       new { id = sbj.SubjectId },
+                       new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
+                    </td>
                 </tr>
             </tbody>
         }

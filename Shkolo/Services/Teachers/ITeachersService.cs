@@ -4,7 +4,10 @@
     using System.Collections.Generic;
     public interface ITeachersService
     {
-        public ICollection<AddTeacherFormModel> GetAllTeachers();
-        public void AddTeacher(AddTeacherFormModel teacher);
+        public ICollection<TeacherFormModel> GetAllTeachers();
+        public void AddTeacher(TeacherFormModel teacher);
+        public void Delete(int id);
+        public TeacherFormModel FindById(int id);
+        public void Edit(int id,TeacherFormModel teacher);
     }
 }

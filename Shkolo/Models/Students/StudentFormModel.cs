@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    public class AddStudentFormModel
+    public class StudentFormModel
     {
             public int StudentId { get; set; }
             [Required]
@@ -28,30 +28,26 @@
             public string Phone { get; set; }
             
             [Required]
-            [MinLength(1)]
-            [MaxLength(2)]
+            [Range(1,100)]
             public int NumInClass { get; set; }
 
             [Required]
-            [MinLength(1)]
-            [MaxLength(2)]
+            [Range(1, 12)]
 
             [Display(Name="Diary")]
-            public string DiaryId { get; set; }
+            public int DiaryId { get; set; }
 
             [Required]
-            [MinLength(1)]
-            [MaxLength(2)]
-            
-            [Display(Name = "Parent")]
-            public string ParentId { get; set; }
+            [Range(1, 100)]
+
+        [Display(Name = "Parent")]
+            public int ParentId { get; set; }
             
             [Required]
-            [MinLength(1)]
-            [MaxLength(2)]
+            [Range(1, 100)]
 
-            [Display(Name = "Doctor")]
-            public string DoctorId { get; set; }
+        [Display(Name = "Doctor")]
+            public int DoctorId { get; set; }
 
             public IEnumerable<StudentDiaryModel> SDiaries { get; set; }
             public IEnumerable<StudentParentModel> SParents { get; set; }

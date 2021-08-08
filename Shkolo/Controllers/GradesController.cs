@@ -33,15 +33,19 @@
                 SearchTerm=searchTerm,
             }) ;
         }
-
-        public IActionResult Add() => View(new AddGradeFormModel
+        public IActionResult Delete(int Id)
+        {
+            this.gradesService.Delete(Id);
+            return this.Redirect("/Grades/All");
+        }
+        public IActionResult Add() => View(new GradeFormModel
         {
             GTypeGrade =this.gradesService.GetTypeGrades(),
             GStudentCourses= this.gradesService.GetStudentCourses()
         });
 
         [HttpPost]
-        public IActionResult Add(AddGradeFormModel grade)
+        public IActionResult Add(GradeFormModel grade)
         {
             if (!ModelState.IsValid)
             {
@@ -51,5 +55,38 @@
             this.gradesService.AddGrade(grade);
             return RedirectToAction("Index", "Home");
         }
+
+        public IActionResult Edit(int id)
+        {
+            var gradeFindById = this.gradesService.FindById(id);
+
+            return View(new GradeFormModel
+            {
+                GradeId = gradeFindById.GradeId,
+                Term_Number = gradeFindById.Term_Number,
+                StudentCourseId = gradeFindById.StudentCourseId,
+                GradeStudents = gradeFindById.GradeStudents,
+                TypeGradeId = gradeFindById.TypeGradeId,
+                Date = gradeFindById.Date,
+                Description = gradeFindById.Description,
+                GTypeGrade = this.gradesService.GetTypeGrades(),
+                GStudentCourses = this.gradesService.GetStudentCourses()
+            });
+        }
+
+
+        [HttpPost]
+        public IActionResult Edit(int id, GradeFormModel grade)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(grade);
+            }
+
+            this.gradesService.Edit(id, grade);
+            return RedirectToAction("All", "Grades");
+
+        }
+
     }
 }

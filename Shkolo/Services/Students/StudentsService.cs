@@ -12,7 +12,7 @@
         {
             this.db = db;
         }
-        public void AddStudent(AddStudentFormModel student)
+        public void AddStudent(StudentFormModel student)
         {
             var studentData = new Student
             {
@@ -22,9 +22,9 @@
                 Address = student.Address,
                 Phone = student.Phone,
                 NumInClass = student.NumInClass,
-                DiaryId = int.Parse(student.DiaryId),
-                ParentId = int.Parse(student.ParentId),
-                DoctorId = int.Parse(student.DoctorId),
+                DiaryId = student.DiaryId,
+                ParentId = student.ParentId,
+                DoctorId = student.DoctorId,
             };
 
             db.Students.Add(studentData);
@@ -38,6 +38,7 @@
             .OrderBy(x => x.NumInClass)
             .Select(x => new AllStudentViewModel
             {
+                StudentId=x.StudentId,
                 Name = x.Name,
                 NumInClass = x.NumInClass,
                 DateOfBirth = x.DateOfBirth,
@@ -78,5 +79,52 @@
                Name = x.Name
            })
            .ToList();
+
+        public StudentFormModel FindById(int id)
+                     => this.db
+                    .Students
+                    .Where(x => x.StudentId == id)
+                    .Select(x => new StudentFormModel
+                    {
+                        StudentId = x.StudentId,
+                        Name = x.Name,
+                        DateOfBirth=x.DateOfBirth,
+                        PlaceOfBirth=x.PlaceOfBirth,
+                        Address=x.Address,
+                        Phone=x.Phone,
+                        NumInClass=x.NumInClass,
+                        DoctorId=x.DoctorId,
+                        ParentId=x.ParentId,
+                        DiaryId=x.DiaryId
+                     
+                    })
+                    .FirstOrDefault();
+
+        public void Edit(int id, StudentFormModel student)
+        {
+            var studentData = new Student
+            {
+                StudentId = id,
+                Name = student.Name,
+                DateOfBirth = student.DateOfBirth,
+                PlaceOfBirth = student.PlaceOfBirth,
+                Address = student.Address,
+                Phone = student.Phone,
+                NumInClass = student.NumInClass,
+                DoctorId = student.DoctorId,
+                ParentId = student.ParentId,
+                DiaryId = student.DiaryId
+            };
+
+            db.Students.Update(studentData);
+            db.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            var StudentDel = this.db.Students.FirstOrDefault(x => x.StudentId == id);
+            this.db.Students.Remove(StudentDel);
+            db.SaveChanges();
+        }
     }
 }

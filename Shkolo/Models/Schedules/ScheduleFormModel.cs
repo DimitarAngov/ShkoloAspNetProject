@@ -3,7 +3,7 @@
     using Shkolo.Models.Courses;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    public class AddScheduleFormModel
+    public class ScheduleFormModel
     {
         public int ScheduleId { get; set; }
 

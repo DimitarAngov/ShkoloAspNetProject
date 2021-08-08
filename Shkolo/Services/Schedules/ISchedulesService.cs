@@ -7,6 +7,9 @@
     {
         public ICollection<AllScheduleViewModel> GetAllSchedules();
         public IEnumerable<AllCourseViewModel> GetScheduleCourses();
-        public void AddSchedule(AddScheduleFormModel schedule);
+        public void AddSchedule(ScheduleFormModel schedule);
+        public void Delete(int id);
+        public ScheduleFormModel FindById(int id);
+        public void Edit(int id, ScheduleFormModel teacher);
     }
 }

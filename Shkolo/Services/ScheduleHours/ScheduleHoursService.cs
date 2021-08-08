@@ -15,7 +15,7 @@ namespace Shkolo.Services.ScheduleHours
         {
             this.db = db;
         }
-        public void AddScheduleHour(AddScheduleHourFormModel scheduleHour)
+        public void AddScheduleHour(ScheduleHourFormModel scheduleHour)
         {
             var scheduleHourData = new ScheduleHour
             {
@@ -69,6 +69,7 @@ namespace Shkolo.Services.ScheduleHours
                 .OrderBy(x => x.Schedule.Term_Number)
                 .Select(x => new AllScheduleHourViewModel
                 {
+                    ScheduleHourId=x.ScheduleHourId,
                     Term_Number = x.Schedule.Term_Number,
                     Date = x.Date,
                     DayOfWeek = x.Schedule.DayOfWeek,
@@ -96,10 +97,16 @@ namespace Shkolo.Services.ScheduleHours
            })
            .ToList();
 
-        public IEnumerable<AddStudentFormModel> GetScheduleStudents()
+        public void Delete(int id)
+        {
+            var scheduleHourDel = this.db.ScheduleHours.FirstOrDefault(x => x.ScheduleHourId == id);
+            this.db.ScheduleHours.Remove(scheduleHourDel);
+            db.SaveChanges();
+        }
+        public IEnumerable<StudentFormModel> GetScheduleStudents()
         => this.db
            .Students
-           .Select(x => new AddStudentFormModel
+           .Select(x => new StudentFormModel
            {
                StudentId = x.StudentId,
                NumInClass = x.NumInClass,
@@ -131,5 +138,39 @@ namespace Shkolo.Services.ScheduleHours
                 .Teachers
                 .Select(x => x.Name)
                 .ToList();
+
+        public ScheduleHourFormModel FindById(int id)
+                => this.db
+                    .ScheduleHours
+                    .Where(x => x.ScheduleHourId == id)
+                    .Select(x => new ScheduleHourFormModel
+                    {
+                        ScheduleHourId = x.ScheduleHourId,
+                        Date = x.Date,
+                        ScheduleId=x.ScheduleId,
+                        Topics=x.Topics,
+                        StudentId=x.StudentId,
+                        TypeAbsenceId=x.TypeAbsenceId,
+                        TypeAbsenceReasonId=x.TypeAbsenceReasonId
+                        
+                    })
+                    .FirstOrDefault();
+
+        public void Edit(int id, ScheduleHourFormModel scheduleHour)
+        {
+            var scheduleHourData = new ScheduleHour
+            {
+                ScheduleHourId = id,
+                Date = scheduleHour.Date,
+                ScheduleId = scheduleHour.ScheduleId,
+                Topics = scheduleHour.Topics,
+                StudentId = scheduleHour.StudentId,
+                TypeAbsenceId = scheduleHour.TypeAbsenceId,
+                TypeAbsenceReasonId = scheduleHour.TypeAbsenceReasonId
+            };
+
+            db.ScheduleHours.Update(scheduleHourData);
+            db.SaveChanges();
+        }
     }
 }

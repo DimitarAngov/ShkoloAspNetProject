@@ -84,8 +84,7 @@ namespace Shkolo.Data.Seeders
                     "Уважително",
                     "Неуважително",
                     "Закъснение",
-                    
-
+                    ""
         };
 
         public string[] DataTypeAbsencesReason =
@@ -93,8 +92,7 @@ namespace Shkolo.Data.Seeders
                     "Здравословни",
                     "Семейни",
                     "Други",
-                    
-   
+                    ""
         };
 
         public string[] DataTypeGrade =

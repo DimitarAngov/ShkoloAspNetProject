@@ -11,9 +11,13 @@
             string gradeStudent);
         public IEnumerable<TypeGradeModel> GetTypeGrades();
         public IEnumerable<StudentCourseModel> GetStudentCourses();
-        public void AddGrade(AddGradeFormModel grade);
+        public void AddGrade(GradeFormModel grade);
         public IEnumerable<string> SubjectN();
         public IEnumerable<string> StudenttN();
         public IEnumerable<string> GradeStudents();
+        public void Delete(int id);
+        public GradeFormModel FindById(int id);
+        public void Edit(int id, GradeFormModel teacher);
+
     }
 }

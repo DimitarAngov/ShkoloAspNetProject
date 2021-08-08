@@ -1,51 +1,11 @@
-﻿@model AddCourseFormModel
+﻿@model CourseFormModel
 
 @{ViewData["Title"] = "Add Courses";}
 
 
 <h2 class="text-center">Add Courses</h2>
-<div class="row">
-    <div class="col-md-8 col-sm-12 offset-md-2">
-        <form method="post">
-               <div class="form-group">
-                    <label asp-for="TeacherId"></label>
-                    <select asp-for="TeacherId" class="form-control">
-                        @foreach (var teacher in Model.CTeachers)
-                        {
-                            <option value=@teacher.TeacherId>@teacher.Name</option>
-                        }
-                    </select>
-                    <span asp-validation-for="TeacherId" class="small text-danger"></span>
-                </div>
 
-                <div class="form-group md-4">
-                    <label asp-for="SubjectId"></label>
-                    <select asp-for="SubjectId" class="form-control">
-                        @foreach (var subject in Model.CSubjects)
-                        {
-                            <option value=@subject.SubjectId>@subject.Name</option>
-                        }
-                    </select>
-                    <span asp-validation-for="SubjectId" class="small text-danger"></span>
-                </div>
+<partial name="_CourseFormPartial" model="@Model" />
 
-                <div class="form-group">
-                    <label asp-for="TypeSubjectId"></label>
-                    <select asp-for="TypeSubjectId" class="form-control">
-                        @foreach (var typeSubject in Model.CTypeSubjects)
-                        {
-                            <option value=@typeSubject.TypeSubjectId>@typeSubject.Name</option>
-                        }
-
-                    </select>
-                    <span asp-validation-for="TypeSubjectId" class="small text-danger"></span>
-                </div>
-            
-            <input class="btn btn-primary float-right" type="submit" value="Save" />
-        </form>
-
-    </div>
-
-</div>
 
 

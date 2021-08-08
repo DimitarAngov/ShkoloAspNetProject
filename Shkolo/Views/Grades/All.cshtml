@@ -5,7 +5,7 @@
 <h2 class="display-4">Grades : </h2>
 
 <form method="get">
-    <div class="row m-5">
+    <div class="row m-5 border border-primary p-0">
         <div class="form-group">
             <label asp-for="SearchTerm">Search by TypeGrade</label>
             <input asp-for="SearchTerm" class="form-control" placeholder="TypeGrade">
@@ -51,7 +51,7 @@
 <div class="row">
 
     <table class="table">
-        <thead>
+        <thead class="badge-info">
             <tr>
                 <th scope="col">Term_Number</th>
                 <th scope="col">Date</th>
@@ -74,6 +74,16 @@
                     <td>@gr.SubjectName</td>
                     <td>@gr.GradeStudent</td>
                     <td>@gr.TypeGradeName</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Grades",
+                         new { id = gr.GradeId},
+                         new { @class = "btn btn-success" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", "Grades",
+                         new { id = gr.GradeId},
+                         new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
+                    </td>
                 </tr>
             </tbody>
         }

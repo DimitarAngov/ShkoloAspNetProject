@@ -16,8 +16,11 @@ namespace Shkolo.Services.ScheduleHours
         public IEnumerable<ScheduleHourTypeAbsenceReason> GetScheduleTypeAbsenceReasons();
         public IEnumerable<ScheduleHourTypeAbsence> GetScheduleTypeAbsences();
         public IEnumerable<AllScheduleViewModel> GetSchedule();
-        public IEnumerable<AddStudentFormModel> GetScheduleStudents();
-        public void AddScheduleHour(AddScheduleHourFormModel scheduleHour);
+        public IEnumerable<StudentFormModel> GetScheduleStudents();
+        public void AddScheduleHour(ScheduleHourFormModel scheduleHour);
         public IEnumerable<string> TeacherN();
+        public void Delete(int id);
+        public ScheduleHourFormModel FindById(int id);
+        public void Edit(int id, ScheduleHourFormModel teacher);
     }
 }

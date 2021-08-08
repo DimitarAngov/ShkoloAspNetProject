@@ -4,8 +4,12 @@
     using System.Collections.Generic;
     public interface ISubjectsService
     {
-        public ICollection<AddSubjectFormModel> GetAllSubjects();
-        public void AddSubject(AddSubjectFormModel student);
-      
+        public ICollection<SubjectFormModel> GetAllSubjects();
+        public void AddSubject(SubjectFormModel student);
+        public void Delete(int id);
+        public SubjectFormModel FindById(int id);
+
+        public void Edit(int id, SubjectFormModel subject);
+
     }
 }

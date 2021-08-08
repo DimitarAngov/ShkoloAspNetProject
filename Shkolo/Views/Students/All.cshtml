@@ -6,7 +6,7 @@
 <div class="row">
 
     <table class="table">
-        <thead>
+        <thead class="badge-info">
             <tr>
                 <th scope="col">NumInClass</th>
                 <th scope="col">Name</th>
@@ -26,6 +26,16 @@
                     <td>@st.PlaceOfBirth</td>
                     <td>@st.Address</td>
                     <td>@st.Phone</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Students",
+                         new { id = st.StudentId },
+                         new { @class = "btn btn-success"})
+                    </td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", "Students",
+                         new { id = st.StudentId },
+                         new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
+                    </td>
                 </tr>
             </tbody>
         }

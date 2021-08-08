@@ -1,7 +1,7 @@
 ﻿namespace Shkolo.Models.Subjects
 {
     using System.ComponentModel.DataAnnotations;
-    public class AddSubjectFormModel
+    public class SubjectFormModel
     {
         public int SubjectId { get; set; }
         

@@ -13,7 +13,7 @@
         {
             this.db = db;
         }
-        public void AddGrade(AddGradeFormModel grade)
+        public void AddGrade(GradeFormModel grade)
         {
             var gradeData = new Grade
             {
@@ -63,6 +63,7 @@
                 .ThenBy(x => x.StudentCourse.Courses.Subject.Name)
                 .Select(x => new AllGradeViewModel
                 {
+                    GradeId=x.GradeId,
                     Term_Number = x.Term_Number,
                     Date = x.Date,
                     StudentName = x.StudentCourse.Students.Name,
@@ -116,5 +117,44 @@
                 .OrderBy(x=>x)
                 .ToList();
 
+        public void Delete(int id)
+        {
+            var gradeDel = this.db.Grades.FirstOrDefault(x => x.GradeId == id);
+            this.db.Grades.Remove(gradeDel);
+            db.SaveChanges();
+        }
+
+        public GradeFormModel FindById(int id)
+                => this.db
+                    .Grades
+                    .Where(x => x.GradeId == id)
+                    .Select(x => new GradeFormModel
+                    {
+                        GradeId = x.GradeId,
+                        Term_Number=x.Term_Number,
+                        StudentCourseId=x.StudentCourseId,
+                        GradeStudents=x.GradeStudents,
+                        TypeGradeId = x.TypeGradeId,
+                        Date = x.Date,
+                        Description = x.Description
+                    })
+                    .FirstOrDefault();
+
+        public void Edit(int id, GradeFormModel grade)
+        {
+            var gradeData = new Grade
+            {
+                GradeId = id,
+                Term_Number = grade.Term_Number,
+                StudentCourseId = grade.StudentCourseId,
+                GradeStudents = grade.GradeStudents,
+                TypeGradeId = grade.TypeGradeId,
+                Date = grade.Date,
+                Description = grade.Description
+            };
+
+            db.Grades.Update(gradeData);
+            db.SaveChanges();
+        }
     }
 }

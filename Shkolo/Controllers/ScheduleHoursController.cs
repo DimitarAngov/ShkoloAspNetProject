@@ -42,8 +42,8 @@
                 SearchTermTwo=searchTermTwo
             });
         }
-
-        public IActionResult Add() => View(new AddScheduleHourFormModel
+       
+        public IActionResult Add() => View(new ScheduleHourFormModel
         {
             SchStudent = this.scheduleHoursService.GetScheduleStudents(),
             SchSchedule = this.scheduleHoursService.GetSchedule(),
@@ -52,7 +52,7 @@
         });
 
         [HttpPost]
-        public IActionResult Add(AddScheduleHourFormModel scheduleHour)
+        public IActionResult Add(ScheduleHourFormModel scheduleHour)
         {
             if (!ModelState.IsValid)
             {
@@ -61,6 +61,40 @@
 
             this.scheduleHoursService.AddScheduleHour(scheduleHour);
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var scheduleHoursFindById = this.scheduleHoursService.FindById(id);
+
+            return View(new ScheduleHourFormModel
+            {
+                ScheduleHourId = scheduleHoursFindById.ScheduleHourId,
+                Date = scheduleHoursFindById.Date,
+                ScheduleId = scheduleHoursFindById.ScheduleId,
+                Topics = scheduleHoursFindById.Topics,
+                StudentId = scheduleHoursFindById.StudentId,
+                TypeAbsenceId = scheduleHoursFindById.TypeAbsenceId,
+                TypeAbsenceReasonId = scheduleHoursFindById.TypeAbsenceReasonId,
+                SchStudent = this.scheduleHoursService.GetScheduleStudents(),
+                SchSchedule = this.scheduleHoursService.GetSchedule(),
+                SchTypeAbsence = this.scheduleHoursService.GetScheduleTypeAbsences(),
+                SchTypeAbsenceReason = this.scheduleHoursService.GetScheduleTypeAbsenceReasons()
+            });
+        }
+
+
+        [HttpPost]
+        public IActionResult Edit(int id, ScheduleHourFormModel scheduleHour)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(scheduleHour);
+            }
+
+            this.scheduleHoursService.Edit(id, scheduleHour);
+            return RedirectToAction("All", "ScheduleHours");
+
         }
     }
 }
