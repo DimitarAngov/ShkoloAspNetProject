@@ -29,7 +29,6 @@
             db.Grades.Add(gradeData);
             db.SaveChanges();
         }
-
         public ICollection<AllGradeViewModel> GetAllGrades(
             string searchTerm,
             string studentName,
@@ -60,6 +59,7 @@
 
             var grades = gradeQuery
                 .OrderBy(x => x.Term_Number)
+                .ThenBy(x=>x.StudentCourse.Students.NumInClass)
                 .ThenBy(x => x.StudentCourse.Courses.Subject.Name)
                 .Select(x => new AllGradeViewModel
                 {
@@ -156,5 +156,58 @@
             db.Grades.Update(gradeData);
             db.SaveChanges();
         }
+
+        public ICollection<AllGradeViewModel> GetAllGradesByStudent(string studentName)
+        {
+            var gradeQuery = this.db.Grades.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(studentName))
+            {
+                gradeQuery = gradeQuery.Where(x => x.StudentCourse.Students.Name == studentName);
+            }
+
+            var grades = gradeQuery
+                .OrderBy(x => x.StudentCourse.Courses.Subject.Name)
+                .ThenBy(x => x.Term_Number)
+                .Select(x => new AllGradeViewModel
+                {
+                    GradeId = x.GradeId,
+                    Term_Number = x.Term_Number,
+                    Date = x.Date,
+                    StudentName = x.StudentCourse.Students.Name,
+                    SubjectName = x.StudentCourse.Courses.Subject.Name,
+                    GradeStudent = x.GradeStudents,
+                    TypeGradeName = x.TypeGrade.Name
+                }).ToList();
+
+            return grades;
+        }
+
+        public ICollection<AllGradeViewModel> GetAllGradesBySubject(string subjectName)
+        {
+            var gradeQuery = this.db.Grades.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(subjectName))
+            {
+                gradeQuery = gradeQuery.Where(x => x.StudentCourse.Courses.Subject.Name == subjectName);
+            }
+
+            var grades = gradeQuery
+                .OrderBy(x => x.StudentCourse.Students.NumInClass)
+                .ThenBy(x=>x.Term_Number)
+                .Select(x => new AllGradeViewModel
+                {
+                    GradeId = x.GradeId,
+                    Term_Number = x.Term_Number,
+                    Date = x.Date,
+                    StudentName = x.StudentCourse.Students.Name,
+                    SubjectName = x.StudentCourse.Courses.Subject.Name,
+                    GradeStudent = x.GradeStudents,
+                    TypeGradeName = x.TypeGrade.Name
+                }).ToList();
+
+            return grades;
+        }
+
     }
 }

@@ -88,8 +88,6 @@ namespace Shkolo
                      endpoints.MapDefaultControllerRoute();
                      endpoints.MapRazorPages();
                 });
-            // app.ApplicationServices.GetService<ShkoloDbContext>().Database.Migrate();
-            //app.ApplicationServices.GetService<DataSeeder>();
-        }
+         }
     }
 }

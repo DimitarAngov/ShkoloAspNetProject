@@ -1,5 +1,6 @@
 ﻿namespace Shkolo.Services.Grades
 {
+    using Shkolo.Data.Models;
     using Shkolo.Models.Grades;
     using System.Collections.Generic;
     public interface IGradesService
@@ -18,6 +19,8 @@
         public void Delete(int id);
         public GradeFormModel FindById(int id);
         public void Edit(int id, GradeFormModel teacher);
-
+        public ICollection<AllGradeViewModel> GetAllGradesByStudent(string studentName);
+        public ICollection<AllGradeViewModel> GetAllGradesBySubject(string subjectName);
+               
     }
 }

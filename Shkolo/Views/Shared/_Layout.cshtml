@@ -44,6 +44,17 @@
                                 <a class="nav-link dropdown-item" asp-area="" asp-controller="Courses" asp-action="All">All Courses</a>
                                 <a class="nav-link dropdown-item" asp-area="" asp-controller="Teachers" asp-action="All">All Teachers</a>
                                 <a class="nav-link dropdown-item" asp-area="" asp-controller="Subjects" asp-action="All">All Subjects</a>
+                                <a class="nav-link dropdown-item" asp-area="" asp-controller="Students" asp-action="StudentAbsences">All Absences</a>
+                            </div>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <button class="btn btn-secondary dropdown-toggle m-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                View
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="nav-link dropdown-item" asp-area="" asp-controller="Grades" asp-action="GradesStudent">View Student Grades</a>
+                                <a class="nav-link dropdown-item" asp-area="" asp-controller="Grades" asp-action="GradesSubject">View Subject Grades</a>
+                                <a class="nav-link dropdown-item" asp-area="" asp-controller="Students" asp-action="StudentAbsencesCount">View Student Absences</a>
                             </div>
                         </li>
                     </ul>

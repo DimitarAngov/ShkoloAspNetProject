@@ -58,6 +58,7 @@
 
         public IActionResult Edit(int id)
         {
+           
             var gradeFindById = this.gradesService.FindById(id);
 
             return View(new GradeFormModel
@@ -74,7 +75,6 @@
             });
         }
 
-
         [HttpPost]
         public IActionResult Edit(int id, GradeFormModel grade)
         {
@@ -85,7 +85,30 @@
 
             this.gradesService.Edit(id, grade);
             return RedirectToAction("All", "Grades");
+        }
 
+        public IActionResult GradesStudent(string studentName)
+        {
+            var grades = this.gradesService.GetAllGradesByStudent(studentName);
+
+            var studentN = gradesService.StudenttN();
+            
+            return View(new AllGradeSearchViewModel
+            {
+                AllStudentsName = studentN,
+                AllGrades = grades,
+            });
+        }
+         public IActionResult GradesSubject(string subjectName)
+        {
+            var grades = this.gradesService.GetAllGradesBySubject(subjectName);
+            var subjectN = gradesService.SubjectN();
+
+            return View(new AllGradeSearchViewModel
+            {
+                AllSubjectsName = subjectN,
+                AllGrades = grades,
+            });
         }
 
     }

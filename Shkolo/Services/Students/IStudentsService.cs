@@ -13,6 +13,8 @@
         public StudentFormModel FindById(int id);
         public void Edit(int id, StudentFormModel student);
         public void Delete(int id);
+        public ICollection<StudentAbsencesModel> GetStudentAbsences();
+        public ICollection<StudentAbsencesCountModel> GetCountStudentAbsences();
 
     }
 }

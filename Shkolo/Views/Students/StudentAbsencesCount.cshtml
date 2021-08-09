@@ -1,0 +1,31 @@
+﻿@model IEnumerable<StudentAbsencesCountModel>
+
+@{ViewData["Title"] = "All Students Absences Count";}
+
+<h2 class="display-4">All Students Absences Count : </h2>
+
+<div class="row">
+
+    <table class="table">
+        <thead class="badge-info">
+            <tr>
+                <th scope="col">StudentName</th>
+                <th scope="col">Absences Count</th>
+            </tr>
+        </thead>
+        @foreach (var ab in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>@ab.StudentName</td>
+                    <td>@ab.AbsencesCount</td>
+                </tr>
+            </tbody>
+        }
+    </table>
+</div>
+
+
+
+
+

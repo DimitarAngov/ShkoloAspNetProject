@@ -1,0 +1,94 @@
+﻿@model AllGradeSearchViewModel
+
+@{ViewData["Title"] = "View Grades Student";}
+
+<h2 class="display-4">View Grades Student : </h2>
+
+<form method="get">
+    <div class="row m-5 border border-primary p-0">
+
+        <div class="form-group col-md-3 m-2">
+            <label asp-for="StudentName">StudentName</label>
+            <select asp-for="StudentName" class="form-control">
+                <option value="">All</option>
+                @foreach (var studentName in Model.AllStudentsName)
+                {
+                    <option value=@studentName>@studentName</option>
+                }
+            </select>
+        </div>
+
+        <input class="btn btn-primary float-right m-2" type="submit" value="Search" />
+    </div>
+</form>
+
+@if (!(Model.StudentName==""))
+{
+    <div class="row">
+        <table class="table">
+            <thead class="badge-info">
+                <tr>
+                    <th scope="col">Subject Name</th>
+                    <th scope="col">GradesSubject-Term-1</th>
+                    <th scope="col">GradesSubject-Term-2</th>
+                    <th scope="col">Term-1-Term-2-Yeah</th>
+                </tr>
+            </thead>
+
+            @{var temp = "";
+            }
+            @{var temp1 = "";
+            }
+            @foreach (var grStudent in Model.AllGrades)
+            {
+                <tbody>
+                    @{temp = @grStudent.SubjectName; }
+
+                    @while (temp != temp1)
+                    {
+
+                    <tr>
+                        <td>@grStudent.SubjectName</td>
+                        <td>
+
+                            @foreach (var grGrades in Model.AllGrades)
+                            {
+                                @if (grStudent.SubjectName == grGrades.SubjectName &&
+                                   (grGrades.Term_Number == 1) &&
+                                  !(grGrades.TypeGradeName == "Срочна" || grGrades.TypeGradeName == "Годишна"))
+                                {
+                                    <span>@grGrades.GradeStudent.Substring(0, 1) </span>
+                                }
+                            }
+                        </td>
+                        <td>
+
+                            @foreach (var grGrades in Model.AllGrades)
+                            {
+                                @if (grStudent.SubjectName == grGrades.SubjectName &&
+                                   (grGrades.Term_Number == 2) &&
+                                  !(grGrades.TypeGradeName == "Срочна" || grGrades.TypeGradeName == "Годишна"))
+                                {
+                                    <span>@grGrades.GradeStudent.Substring(0, 1) </span>
+                                }
+                            }
+                        </td>
+                        <td>
+
+                            @foreach (var grGrades in Model.AllGrades)
+                            {
+                                @if (grStudent.SubjectName == grGrades.SubjectName &&
+                                    (grGrades.TypeGradeName == "Срочна" || grGrades.TypeGradeName == "Годишна"))
+                                {
+                                    <span>@grGrades.GradeStudent.Substring(0, 1) </span>
+                                }
+                            }
+                        </td>
+                    </tr>
+                        temp1 = grStudent.SubjectName;
+                    }
+                </tbody>
+            }
+        </table>
+    </div>
+}
