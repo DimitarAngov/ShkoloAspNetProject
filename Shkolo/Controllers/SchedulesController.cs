@@ -1,16 +1,20 @@
 ﻿namespace Shkolo.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Shkolo.Models.Schedules;
     using Shkolo.Services.Schedules;
-     public class SchedulesController:Controller
+
+    [Authorize(Roles = "Admin")]
+    public class SchedulesController:Controller
     {
         private readonly ISchedulesService schedulesService;
         public SchedulesController(ISchedulesService schedulesService)
         {
             this.schedulesService = schedulesService;
         }
-
+       
+    [AllowAnonymous]
         public IActionResult All()
         {
             var schedules = this.schedulesService.GetAllSchedules();

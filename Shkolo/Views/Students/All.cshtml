@@ -26,16 +26,20 @@
                     <td>@st.PlaceOfBirth</td>
                     <td>@st.Address</td>
                     <td>@st.Phone</td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", "Students",
-                         new { id = st.StudentId },
-                         new { @class = "btn btn-success"})
-                    </td>
-                    <td>
-                        @Html.ActionLink("Delete", "Delete", "Students",
-                         new { id = st.StudentId },
-                         new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
-                    </td>
+                    
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Students",
+                              new { id = st.StudentId },
+                              new { @class = "btn btn-success" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", "Students",
+                              new { id = st.StudentId },
+                              new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
+                        </td>
+                    }
                 </tr>
             </tbody>
         }

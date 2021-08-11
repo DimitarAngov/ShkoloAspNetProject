@@ -70,16 +70,20 @@
                     <td>@gr.SubjectName</td>
                     <td>@gr.GradeStudent</td>
                     <td>@gr.TypeGradeName</td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", "Grades",
-                         new { id = gr.GradeId},
-                         new { @class = "btn btn-success" })
-                    </td>
-                    <td>
-                        @Html.ActionLink("Delete", "Delete", "Grades",
-                         new { id = gr.GradeId},
-                         new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
-                    </td>
+
+                    @if (User.IsInRole("Admin") || (User.HasClaim(c => c.Value == gr.SubjectName)))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Grades",
+                              new { id = gr.GradeId },
+                              new { @class = "btn btn-success" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", "Grades",
+                              new { id = gr.GradeId },
+                              new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
+                        </td>
+                    }
                 </tr>
             </tbody>
         }

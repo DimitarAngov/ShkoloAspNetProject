@@ -45,16 +45,20 @@
                     <td>@sch.SchoolHour</td>
                     <td>@sch.SubjectName</td>
                     <td>@sch.TeacherName</td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", "Schedules",
-                         new { id = sch.ScheduleId},
-                         new { @class = "btn btn-success" })
-                    </td>
-                    <td>
-                        @Html.ActionLink("Delete", "Delete", "Schedules",
-                         new { id = sch.ScheduleId },
-                         new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
-                    </td>
+                    
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Schedules",
+                              new { id = sch.ScheduleId },
+                              new { @class = "btn btn-success" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", "Schedules",
+                              new { id = sch.ScheduleId },
+                              new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
+                        </td>
+                    }
                 </tr>
             </tbody>
         }

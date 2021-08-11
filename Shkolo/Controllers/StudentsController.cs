@@ -1,10 +1,9 @@
 ﻿namespace Shkolo.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Shkolo.Models.Students;
-    using Shkolo.Services.Grades;
     using Shkolo.Services.Students;
- 
     public class StudentsController : Controller
     {
         private readonly IStudentsService studentsService;
@@ -12,18 +11,22 @@
         {
            this.studentsService = studentsService;
         }
-            
+       
+    [Authorize(Roles = "Admin,Teacher")]
         public IActionResult All() 
         {
             var students = this.studentsService.GetAllStudents();
             return View(students);
         }
-
+        
+    [Authorize(Roles = "Admin")]
         public IActionResult Delete(int Id)
         {
             this.studentsService.Delete(Id);
             return this.Redirect("/Students/All");
         }
+
+    [Authorize(Roles = "Admin")]
         public IActionResult Add() => View(new StudentFormModel {
 
             SDiaries = this.studentsService.GetStudentDiary(),
@@ -31,6 +34,7 @@
             SParents= this.studentsService.GetStudentParent()
         });
 
+    [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Add(StudentFormModel student)
         {
@@ -40,7 +44,6 @@
             }
 
             this.studentsService.AddStudent(student);
-                     
             return RedirectToAction("Index","Home");
         }
 
@@ -66,7 +69,7 @@
             });
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Edit(int id, StudentFormModel student)
         {
@@ -79,11 +82,14 @@
             return RedirectToAction("All", "Students");
         }
 
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult StudentAbsencesCount()
         {
             var absencesCount = this.studentsService.GetCountStudentAbsences();
             return View(absencesCount);
         }
+
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult StudentAbsences()
         {
             var absences = this.studentsService.GetStudentAbsences();

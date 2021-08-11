@@ -1,9 +1,11 @@
 ﻿namespace Shkolo.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Shkolo.Models.Teachers;
     using Shkolo.Services.Teachers;
-
+    
+    [Authorize(Roles = "Admin")]
     public class TeachersController : Controller
     {
         private readonly ITeachersService teachersService;
@@ -11,6 +13,8 @@
         {
             this.teachersService = teachersService;
         }
+
+    [AllowAnonymous]
         public IActionResult All()
         {
             var teachers = this.teachersService.GetAllTeachers();

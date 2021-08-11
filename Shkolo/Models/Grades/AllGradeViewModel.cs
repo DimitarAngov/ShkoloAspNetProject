@@ -9,5 +9,6 @@
         public string GradeStudent { get; set; }
         public string TypeGradeName { get; set; }
         public string Date { get; set; }
+        public string StudentPhoneNumber { get; set; }
     }
 }

@@ -3,6 +3,7 @@
 @{ViewData["Title"] = "All Courses";}
 
 <h2 class="display-4">Courses : </h2>
+
 <div class="row">
     <table class="table">
         <thead class="badge-info">
@@ -21,16 +22,20 @@
                     <td>@cs.TeacherName</td>
                     <td>@cs.SubjectName</td>
                     <td>@cs.TypeSubjectName</td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", "Courses",
-                         new { id = cs.CourseId },
-                         new { @class = "btn btn-success"})
-                    </td>
-                    <td>
-                        @Html.ActionLink("Delete", "Delete", "Courses",
-                         new { id = cs.CourseId },
-                         new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
-                    </td>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Courses",
+                              new { id = cs.CourseId },
+                              new { @class = "btn btn-success" })
+                        </td>
+                         <td>
+                            @Html.ActionLink("Delete", "Delete", "Courses",
+                              new { id = cs.CourseId },
+                              new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
+                        </td>
+                    }
                 </tr>
             </tbody>
         }

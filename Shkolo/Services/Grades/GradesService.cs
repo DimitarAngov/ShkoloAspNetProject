@@ -176,7 +176,7 @@
           
            return gradesAllGrades;
         }
-        private ICollection<AllGradeViewModel> GetG(IQueryable<Grade> gradeQuery)
+        private static ICollection<AllGradeViewModel> GetG(IQueryable<Grade> gradeQuery)
             =>gradeQuery
             .Select(x => new AllGradeViewModel
             {
@@ -186,7 +186,8 @@
                 StudentName = x.StudentCourse.Students.Name,
                 SubjectName = x.StudentCourse.Courses.Subject.Name,
                 GradeStudent = x.GradeStudents,
-                TypeGradeName = x.TypeGrade.Name
+                TypeGradeName = x.TypeGrade.Name,
+                StudentPhoneNumber=x.StudentCourse.Students.Phone
             })
             .ToList();
     }

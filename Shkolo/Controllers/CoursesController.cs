@@ -1,15 +1,19 @@
 ﻿namespace Shkolo.Controllers
 {
-   using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
    using Shkolo.Models.Courses;
    using Shkolo.Services.Courses;
-   public class CoursesController:Controller
+
+    [Authorize(Roles = "Admin")]
+    public class CoursesController:Controller
     {
         private readonly ICoursesService coursesService;
         public CoursesController(ICoursesService coursesService)
         {
             this.coursesService = coursesService;
         }
+   [AllowAnonymous]
         public IActionResult All()
         {
             var courses=this.coursesService.GetAllCourses();

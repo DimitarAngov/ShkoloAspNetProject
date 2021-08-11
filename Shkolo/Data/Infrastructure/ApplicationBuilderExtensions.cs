@@ -13,10 +13,10 @@
             using var scopedServicesSeeder = app.ApplicationServices.CreateScope();
             
             var data = scopedServicesData.ServiceProvider.GetService<ShkoloDbContext>();
-            var seeder = scopedServicesSeeder.ServiceProvider.GetService<SeedDataServices>();
+            /*var seeder = scopedServicesSeeder.ServiceProvider.GetService<SeedDataServices>();*/
            
             data.Database.Migrate();
-            seeder.SeederData();
+          /*  seeder.SeederData();*/
 
             return app;
         }

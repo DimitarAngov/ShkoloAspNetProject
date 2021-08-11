@@ -17,16 +17,20 @@
                 <tr>
                     <td>@tch.TeacherId</td>
                     <td>@tch.Name</td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", "Teachers",
-                             new { id = tch.TeacherId},
-                             new { @class = "btn btn-success" })
-                    </td>
-                    <td>
-                        @Html.ActionLink("Delete", "Delete", "Teachers",
-                             new { id = tch.TeacherId },
-                             new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
-                    </td>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Teachers",
+                                  new { id = tch.TeacherId },
+                                  new { @class = "btn btn-success" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", "Teachers",
+                                  new { id = tch.TeacherId },
+                                  new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
+                        </td>
+                    }
                 </tr>
             </tbody>
         }

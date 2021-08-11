@@ -78,17 +78,23 @@
                     {
                         <td class="text-center">@schh.AbsenceStudentNimberInClass</td>
                     }
-                    else { <td class="text-center">-</td>}
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", "ScheduleHours",
-                         new { id = schh.ScheduleHourId},
-                         new { @class = "btn btn-success" })
-                    </td>
-                    <td>
-                        @Html.ActionLink("Delete", "Delete", "ScheduleHours",
-                         new { id = schh.ScheduleHourId},
-                         new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
-                    </td>
+                    else
+                    {
+                        <td class="text-center">-</td>
+                    }
+                    @if (User.IsInRole("Admin") || (User.HasClaim(c => c.Value == schh.ScheduleSubjectName)))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "ScheduleHours",
+                              new { id = schh.ScheduleHourId },
+                              new { @class = "btn btn-success" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", "ScheduleHours",
+                              new { id = schh.ScheduleHourId },
+                              new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
+                        </td>
+                    }
                 </tr>
             </tbody>
         }

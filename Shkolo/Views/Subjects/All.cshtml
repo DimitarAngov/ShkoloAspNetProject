@@ -18,16 +18,19 @@
                 <tr>
                     <td>@sbj.SubjectId</td>
                     <td>@sbj.Name</td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", "Subjects",
-                       new { id = sbj.SubjectId },
-                       new { @class = "btn btn-success"})
-                    </td>
-                    <td>
-                        @Html.ActionLink("Delete", "Delete", "Subjects",
-                       new { id = sbj.SubjectId },
-                       new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
-                    </td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Subjects",
+                            new { id = sbj.SubjectId },
+                            new { @class = "btn btn-success" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", "Subjects",
+                            new { id = sbj.SubjectId },
+                            new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
+                        </td>
+                    }
                 </tr>
             </tbody>
         }

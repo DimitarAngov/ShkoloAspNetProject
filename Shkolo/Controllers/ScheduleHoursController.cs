@@ -1,5 +1,6 @@
 ﻿namespace Shkolo.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Shkolo.Data;
     using Shkolo.Data.Models;
@@ -10,7 +11,8 @@
     using Shkolo.Services.ScheduleHours;
     using System.Collections.Generic;
     using System.Linq;
-
+    
+    [Authorize(Roles = "Admin,Teacher")]
     public class ScheduleHoursController:Controller
     {
        

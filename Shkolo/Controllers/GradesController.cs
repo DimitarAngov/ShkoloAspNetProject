@@ -1,9 +1,9 @@
 ﻿namespace Shkolo.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Shkolo.Models.Grades;
     using Shkolo.Services.Grades;
-  
     public class GradesController : Controller
     {
         private readonly IGradesService gradesService;
@@ -12,6 +12,7 @@
             this.gradesService=gradesService;
         }
 
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult All(
             string searchTerm,
             string studentName,
@@ -33,16 +34,22 @@
                 SearchTerm=searchTerm,
             }) ;
         }
+
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult Delete(int Id)
         {
             this.gradesService.Delete(Id);
             return this.Redirect("/Grades/All");
         }
+
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult Add() => View(new GradeFormModel
         {
             GTypeGrade =this.gradesService.GetTypeGrades(),
             GStudentCourses= this.gradesService.GetStudentCourses()
         });
+
+        [Authorize(Roles = "Admin,Teacher")]
 
         [HttpPost]
         public IActionResult Add(GradeFormModel grade)
@@ -56,6 +63,7 @@
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult Edit(int id)
         {
            
@@ -75,6 +83,8 @@
             });
         }
 
+        [Authorize(Roles = "Admin,Teacher")]
+
         [HttpPost]
         public IActionResult Edit(int id, GradeFormModel grade)
         {
@@ -87,6 +97,7 @@
             return RedirectToAction("All", "Grades");
         }
 
+        [Authorize(Roles = "Admin,Teacher,Student")]
         public IActionResult GradesStudent(string studentName)
         {
             var grades = this.gradesService.GetAllGradesByStudent(studentName);
@@ -99,7 +110,9 @@
                 AllGrades = grades,
             });
         }
-         public IActionResult GradesSubject(string subjectName)
+
+        [Authorize(Roles = "Admin,Teacher,Student")]
+        public IActionResult GradesSubject(string subjectName)
         {
             var grades = this.gradesService.GetAllGradesBySubject(subjectName);
             var subjectN = gradesService.SubjectN();

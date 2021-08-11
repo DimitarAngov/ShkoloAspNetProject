@@ -51,7 +51,7 @@ namespace Shkolo
                     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                 });
 
-            services.AddTransient<ISeedDataServices, SeedDataServices>();
+           /* services.AddTransient<ISeedDataServices, SeedDataServices>();*/
             services.AddTransient<IStatisticsService, StatisticsService>();
             services.AddTransient<ITeachersService,TeachersService>();
             services.AddTransient<ISubjectsService, SubjectsService>();
