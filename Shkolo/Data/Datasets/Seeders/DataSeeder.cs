@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Shkolo.Data.Seeders
+﻿namespace Shkolo.Data.Datasets.Seeders
 {
     public class DataSeeder
     {
@@ -301,5 +296,6 @@ namespace Shkolo.Data.Seeders
                     
 
         };
+
     }
 }

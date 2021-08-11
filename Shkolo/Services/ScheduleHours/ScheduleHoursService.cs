@@ -30,7 +30,6 @@ namespace Shkolo.Services.ScheduleHours
             db.ScheduleHours.Add(scheduleHourData);
             db.SaveChanges();
         }
-
         public ICollection<AllScheduleHourViewModel> GetAllScheduleHours(
                                  string teacherName,
                                  string subjectName,
@@ -82,7 +81,6 @@ namespace Shkolo.Services.ScheduleHours
             
             return scheduleHour;
         }
-
         public IEnumerable<AllScheduleViewModel> GetSchedule()
         => this.db
            .Schedules
@@ -113,7 +111,6 @@ namespace Shkolo.Services.ScheduleHours
                Name = x.Name
            })
            .ToList();
-
         public IEnumerable<ScheduleHourTypeAbsenceReason> GetScheduleTypeAbsenceReasons()
          => this.db
            .TypeAbsenceReasons
@@ -123,7 +120,6 @@ namespace Shkolo.Services.ScheduleHours
                Name = x.Name
            })
            .ToList();
-
         public IEnumerable<ScheduleHourTypeAbsence> GetScheduleTypeAbsences()
         => this.db
            .TypeAbsences

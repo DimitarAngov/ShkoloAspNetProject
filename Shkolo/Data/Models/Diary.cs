@@ -16,7 +16,7 @@
         [MaxLength(1)]
         public string ClassName { get; set; }
 
-        //[DisplayName("ClassTeacher")] 
+        [DisplayName("ClassTeacher")] 
         public int TeacherId{ get; set; }
         public Teacher Teacher { get; set; }
         public string SchoolYear { get; set; }

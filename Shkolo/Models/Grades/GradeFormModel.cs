@@ -28,7 +28,6 @@ namespace Shkolo.Models.Grades
 
         [MaxLength(100)]
         public string Description { get; set; }
-
         public IEnumerable<StudentCourseModel> GStudentCourses { get; set; }
         public IEnumerable<TypeGradeModel> GTypeGrade { get; set; }
     }

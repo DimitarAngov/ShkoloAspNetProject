@@ -3,7 +3,6 @@
     using Shkolo.Data;
     using Shkolo.Data.Models;
     using Shkolo.Models.Grades;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     public class GradesService : IGradesService
@@ -57,24 +56,15 @@
                 gradeQuery = gradeQuery.Where(x => x.GradeStudents == gradeStudent);
             }
 
-            var grades = gradeQuery
+            var gradesOrder = gradeQuery
                 .OrderBy(x => x.Term_Number)
-                .ThenBy(x=>x.StudentCourse.Students.NumInClass)
-                .ThenBy(x => x.StudentCourse.Courses.Subject.Name)
-                .Select(x => new AllGradeViewModel
-                {
-                    GradeId=x.GradeId,
-                    Term_Number = x.Term_Number,
-                    Date = x.Date,
-                    StudentName = x.StudentCourse.Students.Name,
-                    SubjectName = x.StudentCourse.Courses.Subject.Name,
-                    GradeStudent = x.GradeStudents,
-                    TypeGradeName = x.TypeGrade.Name
-                }).ToList();
-            
-            return grades;
-        }
+                .ThenBy(x => x.StudentCourse.Students.NumInClass)
+                .ThenBy(x => x.StudentCourse.Courses.Subject.Name);
 
+            var gradesAllGrades = GetG(gradesOrder);
+                      
+            return gradesAllGrades;
+        }
         public IEnumerable<StudentCourseModel> GetStudentCourses()
         => this.db
            .StudentsCourses
@@ -87,7 +77,6 @@
                TeacherName = x.Courses.Teacher.Name
            })
            .ToList();
-
         public IEnumerable<TypeGradeModel> GetTypeGrades()
         => this.db
            .TypeGrades
@@ -97,7 +86,6 @@
                Name = x.Name
            })
            .ToList();
-
         public IEnumerable<string> SubjectN()
             =>this.db
                 .Subjects
@@ -123,7 +111,6 @@
             this.db.Grades.Remove(gradeDel);
             db.SaveChanges();
         }
-
         public GradeFormModel FindById(int id)
                 => this.db
                     .Grades
@@ -139,7 +126,6 @@
                         Description = x.Description
                     })
                     .FirstOrDefault();
-
         public void Edit(int id, GradeFormModel grade)
         {
             var gradeData = new Grade
@@ -156,7 +142,6 @@
             db.Grades.Update(gradeData);
             db.SaveChanges();
         }
-
         public ICollection<AllGradeViewModel> GetAllGradesByStudent(string studentName)
         {
             var gradeQuery = this.db.Grades.AsQueryable();
@@ -166,23 +151,14 @@
                 gradeQuery = gradeQuery.Where(x => x.StudentCourse.Students.Name == studentName);
             }
 
-            var grades = gradeQuery
+            var gradesOrder = gradeQuery
                 .OrderBy(x => x.StudentCourse.Courses.Subject.Name)
-                .ThenBy(x => x.Term_Number)
-                .Select(x => new AllGradeViewModel
-                {
-                    GradeId = x.GradeId,
-                    Term_Number = x.Term_Number,
-                    Date = x.Date,
-                    StudentName = x.StudentCourse.Students.Name,
-                    SubjectName = x.StudentCourse.Courses.Subject.Name,
-                    GradeStudent = x.GradeStudents,
-                    TypeGradeName = x.TypeGrade.Name
-                }).ToList();
+                .ThenBy(x => x.Term_Number);
 
-            return grades;
+            var gradesAllGrades = GetG(gradesOrder);
+            
+            return gradesAllGrades;
         }
-
         public ICollection<AllGradeViewModel> GetAllGradesBySubject(string subjectName)
         {
             var gradeQuery = this.db.Grades.AsQueryable();
@@ -191,23 +167,27 @@
             {
                 gradeQuery = gradeQuery.Where(x => x.StudentCourse.Courses.Subject.Name == subjectName);
             }
-
-            var grades = gradeQuery
+            
+           var gradesOrder = gradeQuery
                 .OrderBy(x => x.StudentCourse.Students.NumInClass)
-                .ThenBy(x=>x.Term_Number)
-                .Select(x => new AllGradeViewModel
-                {
-                    GradeId = x.GradeId,
-                    Term_Number = x.Term_Number,
-                    Date = x.Date,
-                    StudentName = x.StudentCourse.Students.Name,
-                    SubjectName = x.StudentCourse.Courses.Subject.Name,
-                    GradeStudent = x.GradeStudents,
-                    TypeGradeName = x.TypeGrade.Name
-                }).ToList();
-
-            return grades;
+                .ThenBy(x => x.Term_Number);
+           
+           var gradesAllGrades = GetG(gradesOrder);
+          
+           return gradesAllGrades;
         }
-
+        private ICollection<AllGradeViewModel> GetG(IQueryable<Grade> gradeQuery)
+            =>gradeQuery
+            .Select(x => new AllGradeViewModel
+            {
+                GradeId = x.GradeId,
+                Term_Number = x.Term_Number,
+                Date = x.Date,
+                StudentName = x.StudentCourse.Students.Name,
+                SubjectName = x.StudentCourse.Courses.Subject.Name,
+                GradeStudent = x.GradeStudents,
+                TypeGradeName = x.TypeGrade.Name
+            })
+            .ToList();
     }
 }

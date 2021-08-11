@@ -1,10 +1,9 @@
-﻿using Shkolo.Models.ScheduleHours;
-using Shkolo.Models.Schedules;
-using Shkolo.Models.Students;
-using System.Collections.Generic;
-
-namespace Shkolo.Services.ScheduleHours
+﻿namespace Shkolo.Services.ScheduleHours
 {
+    using Shkolo.Models.ScheduleHours;
+    using Shkolo.Models.Schedules;
+    using Shkolo.Models.Students;
+    using System.Collections.Generic;
     public interface IScheduleHoursService
     {
         public ICollection<AllScheduleHourViewModel> GetAllScheduleHours(

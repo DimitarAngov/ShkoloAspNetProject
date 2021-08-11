@@ -30,7 +30,6 @@
             db.Students.Add(studentData);
             db.SaveChanges();
         }
-
         public ICollection<AllStudentViewModel> GetAllStudents()
         {
             var students = this.db
@@ -69,7 +68,6 @@
                           Name = x.Name
                       })
                       .ToList();
-
         public IEnumerable<StudentDoctorModel> GetStudentDoctor()
         => this.db
            .Doctors
@@ -79,7 +77,6 @@
                Name = x.Name
            })
            .ToList();
-
         public StudentFormModel FindById(int id)
                      => this.db
                     .Students
@@ -99,7 +96,6 @@
 
                     })
                     .FirstOrDefault();
-
         public void Edit(int id, StudentFormModel student)
         {
             var studentData = new Student
@@ -148,7 +144,6 @@
 
             return studentsAbsences;
         }
-
         public ICollection<StudentAbsencesCountModel> GetCountStudentAbsences()
         {
             var studentsAbsencesCount = this.db

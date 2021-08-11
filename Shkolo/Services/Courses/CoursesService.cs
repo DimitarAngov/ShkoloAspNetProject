@@ -28,14 +28,12 @@
             db.SaveChanges();
 
         }
-
         public void Delete(int id)
         {
             var CourseDel = this.db.Courses.FirstOrDefault(x => x.CourseId == id);
             this.db.Courses.Remove(CourseDel);
             db.SaveChanges();
         }
-
         public void Edit(int id, CourseFormModel course)
         {
             var courseData = new Course
@@ -49,7 +47,6 @@
             db.Courses.Update(courseData);
             db.SaveChanges();
         }
-
         public CourseFormModel FindById(int id)
                      => this.db
                     .Courses
@@ -62,7 +59,7 @@
                         TypeSubjectId=x.TypeSubjectId
                     })
                     .FirstOrDefault();
-       
+      
         public ICollection<AllCourseViewModel> GetAllCourses()
         {
             var courses = this.db

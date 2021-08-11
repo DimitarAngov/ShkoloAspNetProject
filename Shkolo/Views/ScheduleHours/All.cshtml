@@ -63,10 +63,8 @@
             </tr>
         </thead>
 
-
         @foreach (var schh in Model.AllScheduleHours)
         {
-
             <tbody>
                 <tr>
                     <td class="text-center">@schh.Term_Number</td>
@@ -91,11 +89,8 @@
                          new { id = schh.ScheduleHourId},
                          new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
                     </td>
-
                 </tr>
             </tbody>
         }
-
     </table>
-
 </div>

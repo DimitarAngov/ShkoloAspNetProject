@@ -6,7 +6,6 @@
     using Shkolo.Models.Schedules;
     using System.Collections.Generic;
     using System.Linq;
-
     public class SchedulesService:ISchedulesService
     {
         private readonly ShkoloDbContext db;
@@ -14,7 +13,6 @@
         {
             this.db = db;
         }
-
         public void AddSchedule(ScheduleFormModel schedule)
         {
             var scheduleData = new Schedule
@@ -32,14 +30,12 @@
             db.Schedules.Add(scheduleData);
             db.SaveChanges();
         }
-
         public void Delete(int id)
         {
             var ScheduleDel = this.db.Schedules.FirstOrDefault(x => x.ScheduleId == id);
             this.db.Schedules.Remove(ScheduleDel);
             db.SaveChanges();
         }
-
         public void Edit(int id, ScheduleFormModel schedule)
         {
             var scheduleData = new Schedule
@@ -56,7 +52,6 @@
             db.Schedules.Update(scheduleData);
             db.SaveChanges();
         }
-
         public ScheduleFormModel FindById(int id)
                 => this.db
                     .Schedules
@@ -72,7 +67,6 @@
                         CourseId=x.CourseId
                     })
                     .FirstOrDefault();
-
         public ICollection<AllScheduleViewModel> GetAllSchedules()
         {
             var schedules = this.db
@@ -92,7 +86,6 @@
             }).ToList();
             return schedules;
         }
-
         public IEnumerable<AllCourseViewModel> GetScheduleCourses()
          => this.db
            .Courses

@@ -1,13 +1,9 @@
-﻿using Shkolo.Models.Courses;
-using Shkolo.Models.Subjects;
-using Shkolo.Models.Teachers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Shkolo.Services.Courses
+﻿namespace Shkolo.Services.Courses
 {
+    using Shkolo.Models.Courses;
+    using Shkolo.Models.Subjects;
+    using Shkolo.Models.Teachers;
+    using System.Collections.Generic;
     public interface ICoursesService
     {
         public ICollection<AllCourseViewModel> GetAllCourses();

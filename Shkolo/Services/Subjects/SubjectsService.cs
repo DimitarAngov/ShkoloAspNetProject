@@ -5,7 +5,6 @@
     using Shkolo.Models.Subjects;
     using System.Collections.Generic;
     using System.Linq;
-
     public class SubjectsService : ISubjectsService
     {
         private readonly ShkoloDbContext db;

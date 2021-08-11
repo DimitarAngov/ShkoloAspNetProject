@@ -5,7 +5,6 @@
 <h2 class="display-4">Schedules : </h2>
 
 <div class="row">
-
     <table class="table">
         <thead class="badge-info">
             <tr>
@@ -17,10 +16,8 @@
             </tr>
         </thead>
 
-
         @foreach (var sch in Model)
         {
-
             <tbody>
                 <tr>
                     <td>@sch.Term_Number</td>
@@ -45,7 +42,6 @@
                     {
                         <td>Friday</td>
                     }
-
                     <td>@sch.SchoolHour</td>
                     <td>@sch.SubjectName</td>
                     <td>@sch.TeacherName</td>
@@ -62,7 +58,5 @@
                 </tr>
             </tbody>
         }
-
     </table>
-
 </div>

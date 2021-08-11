@@ -40,7 +40,6 @@
                         @foreach (var diary in Model.SDiaries)
                         {
                             <option value=@diary.DiaryId>@diary.NumberClassName - @diary.ClassName</option>
-
                         }
                     </select>
                     <span asp-validation-for="DiaryId" class="small text-danger"></span>
@@ -64,15 +63,12 @@
                         {
                             <option value=@doctor.DoctorId>@doctor.Name</option>
                         }
-
                     </select>
                     <span asp-validation-for="DoctorId" class="small text-danger"></span>
                 </div>
             </div>
             <input class="btn btn-primary float-right" type="submit" value="Save" />
         </form>
-
     </div>
-
 </div>
 

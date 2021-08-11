@@ -1,11 +1,10 @@
-﻿using Shkolo.Data;
-using Shkolo.Data.Models;
-using Shkolo.Models.Teachers;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Shkolo.Services.Teachers
+﻿namespace Shkolo.Services.Teachers
 {
+    using Shkolo.Data;
+    using Shkolo.Data.Models;
+    using Shkolo.Models.Teachers;
+    using System.Collections.Generic;
+    using System.Linq;
     public class TeachersService : ITeachersService
     {
         private readonly ShkoloDbContext db;
@@ -26,7 +25,6 @@ namespace Shkolo.Services.Teachers
             
             return teachers;
         }
-
         public void AddTeacher(TeacherFormModel teacher)
         {
             var teacherData = new Teacher
@@ -53,7 +51,6 @@ namespace Shkolo.Services.Teachers
                         Name=x.Name
                     })
                     .FirstOrDefault();
-
         public void Edit(int id,TeacherFormModel teacher)
         {
             var teacherData = new Teacher
