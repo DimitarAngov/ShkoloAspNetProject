@@ -82,14 +82,14 @@
             return RedirectToAction("All", "Students");
         }
 
-        [Authorize(Roles = "Admin,Teacher")]
+        [Authorize(Roles = "Admin,Teacher,Student")]
         public IActionResult StudentAbsencesCount()
         {
             var absencesCount = this.studentsService.GetCountStudentAbsences();
             return View(absencesCount);
         }
 
-        [Authorize(Roles = "Admin,Teacher")]
+        [Authorize(Roles = "Admin,Teacher,Student")]
         public IActionResult StudentAbsences()
         {
             var absences = this.studentsService.GetStudentAbsences();

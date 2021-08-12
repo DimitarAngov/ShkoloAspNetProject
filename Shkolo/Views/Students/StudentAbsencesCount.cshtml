@@ -14,12 +14,26 @@
         </thead>
         @foreach (var ab in Model)
         {
-            <tbody>
+    <tbody>
+        @if (User.IsInRole("Student"))
+        {
+            if (User.HasClaim(c => c.Value == ab.StudentName))
+            {
                 <tr>
                     <td>@ab.StudentName</td>
                     <td>@ab.AbsencesCount</td>
                 </tr>
-            </tbody>
+            }
+            
+        }
+        @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
+        {
+                <tr>
+                    <td>@ab.StudentName</td>
+                    <td>@ab.AbsencesCount</td>
+                </tr>
+        }
+    </tbody>
         }
     </table>
 </div>
