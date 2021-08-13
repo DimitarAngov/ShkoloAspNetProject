@@ -31,8 +31,10 @@ namespace Shkolo.Areas.Admin.Services.Claims
         }
         public void Delete(int id)
         {
+
             var claimDel = this.db.UserClaims.FirstOrDefault(x => x.Id == id);
                 this.db.UserClaims.Remove(claimDel);
+                db.SaveChanges();
         }
 
 

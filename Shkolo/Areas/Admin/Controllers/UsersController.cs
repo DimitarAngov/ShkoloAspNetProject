@@ -3,71 +3,139 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Identity;
     using Shkolo.Areas.Admin.Models;
-    using Shkolo.Areas.Admin.Services.Users;
     using Microsoft.AspNetCore.Authorization;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System;
 
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
-        private readonly IUsersService usersService;
-        public UsersController(IUsersService usersService)
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
+        public UsersController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            this.usersService = usersService;
+            this.userManager = userManager;
+            this.roleManager = roleManager;
         }
         public IActionResult All()
-            {
-            var users = this.usersService.All();
+        {
+            var users = this.userManager.Users
+                .OrderBy(x => x.Id)
+                .Select(x => new AspNetUsers
+                {
+                    Id = x.Id,
+                    UserName = x.UserName,
+                    Email = x.Email,
+                    PhoneNumber = x.PhoneNumber,
+                }).ToList();
+
             return View(users);
         }
 
-        public IActionResult Add() => View();
-
-        [HttpPost]
-        public IActionResult Add(AspNetUsers user)
-            {
-                if (!ModelState.IsValid)
-                {
-                    return View(user);
-                }
-            this.usersService.Add(user);
-            return this.Redirect("/Admin/Users/All");
-        }
-
-        public IActionResult Edit(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            var userFindById = this.usersService.FindById(id);
-
-            return View(new AspNetUsers
+            var user = await this.userManager.FindByIdAsync(id);
+            if (user != null)
             {
-                Id= userFindById.Id,
-                UserName= userFindById.UserName,
-                Email = userFindById.Email,
-                PhoneNumber= userFindById.PhoneNumber,
-                PasswordHash= userFindById.PasswordHash,
-                EmailConfirmed = false,
-                PhoneNumberConfirmed = false,
-                TwoFactorEnabled = false,
-                LockoutEnabled = true,
-                AccessFailedCount = 0
-            });
-        }
-
-        [HttpPost]
-        public IActionResult Edit(string id, AspNetUsers user)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(user);
+                await this.userManager.DeleteAsync(user);
             }
-            this.usersService.Edit(id, user);
             return this.Redirect("/Admin/Users/All");
+        }
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(AspNetUsers model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                IdentityUser user = new IdentityUser
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber,
+                    PasswordHash = model.PasswordHash,
+                    EmailConfirmed = false,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = true,
+                    AccessFailedCount = 0
+                };
+
+                IdentityResult result = await this.userManager.CreateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return this.Redirect("/Admin/Users/All");
+                }
+            }
+
+            return this.View(model);
+        }
+        public async Task<IActionResult> Edit(string id)
+        {
+            var model = await this.userManager.FindByIdAsync(id);
+
+            var user = new AspNetUsers
+            {
+                Id = model.Id,
+                UserName = model.UserName,
+                Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
+                PasswordHash = model.PasswordHash,
+            };
+
+            return this.View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(AspNetUsers model)
+        {
+            var user = await this.userManager.FindByIdAsync(model.Id);
+            user.UserName = model.UserName;
+            user.PhoneNumber = model.PhoneNumber;
+            user.Email = model.Email;
+            user.PasswordHash = model.PasswordHash;
+            IdentityResult result = await this.userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return this.Redirect("/Admin/Users/All");
+            }
+            else
+            {
+                return this.View(model);
+            }
+        }
+
+        public IActionResult AddUsersRoles()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddUsersRoles(AspNetUserRoles model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                /*var user = await this.userManager.FindByIdAsync(model.UserId);
+                var role = await this.roleManager.FindByIdAsync(model.RoleId);
+                await userManager.CreateAsync(new IdentityUser(user.UserName));
+                await roleManager.CreateAsync(new IdentityRole(role.Name));
+                //var result= await userManager.AddToRoleAsync(user, role.Name);
+               await userManager.AddToRoleAsync(user, role.Name);
+
+                //return this.Redirect("/Admin/Users/AllUsersRoles");*/
+                return this.View(model);
+            }
+            return this.View(model);
         }
         
-        public IActionResult Delete(string id)
-        {
-            this.usersService.Delete(id);
-            return this.Redirect("/Admin/Users/All");
-        }
     }
+
 }

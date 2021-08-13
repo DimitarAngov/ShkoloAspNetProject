@@ -9,9 +9,6 @@ namespace Shkolo
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Shkolo.Areas.Admin.Services.Claims;
-    using Shkolo.Areas.Admin.Services.Roles;
-    using Shkolo.Areas.Admin.Services.Users;
-    using Shkolo.Areas.Admin.Services.UsersServices;
     using Shkolo.Data;
     using Shkolo.Data.Datasets;
     using Shkolo.Data.Datasets.Services;
@@ -64,8 +61,6 @@ namespace Shkolo
             services.AddTransient<ISchedulesService,SchedulesService>();
             services.AddTransient<IScheduleHoursService, ScheduleHoursService>();
             services.AddTransient<IGradesService,GradesService>();
-            services.AddTransient<IUsersService, UsersService>();
-            services.AddTransient<IRolesService, RolesService>();
             services.AddTransient<IClaimsService, ClaimsService>();
         }
 

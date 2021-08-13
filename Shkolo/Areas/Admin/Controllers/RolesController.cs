@@ -1,67 +1,98 @@
 ﻿namespace Shkolo.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Shkolo.Areas.Admin.Models;
-    using Shkolo.Areas.Admin.Services.Roles;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    public class RolesController:Controller
+    public class RolesController : Controller
     {
-        private readonly IRolesService rolesService;
-        public RolesController(IRolesService rolesService)
+        private readonly RoleManager<IdentityRole> roleManager;
+        public RolesController(RoleManager<IdentityRole> roleManager)
         {
-            this.rolesService = rolesService;
+            this.roleManager = roleManager;
         }
+
         public IActionResult All()
         {
-            var roles = this.rolesService.All();
+            var roles = this.roleManager.Roles
+                .OrderBy(x => x.Id)
+                .Select(x => new AspNetRoles
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                }).ToList(); ;
+
             return View(roles);
         }
 
-        public IActionResult Delete(string id)
+         public async Task<IActionResult> Delete(string id)
         {
-            this.rolesService.Delete(id);
+            var role = await this.roleManager.FindByIdAsync(id);
+            if (role != null)
+            {
+                await this.roleManager.DeleteAsync(role);
+            }
             return this.Redirect("/Admin/Roles/All");
         }
-    
         public IActionResult Add()
         {
             return View();
         }
 
-    [HttpPost]
-        public IActionResult Add(AspNetRoles role)
+        [HttpPost]
+        public async Task<IActionResult> Add(AspNetRoles model)
         {
-            if (!ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
-                return View(role);
+                IdentityRole role = new IdentityRole
+                {
+                    Id = model.Id,
+                    Name = model.Name
+                };
+
+                IdentityResult result = await this.roleManager.CreateAsync(role);
+
+                if (result.Succeeded)
+                {
+                    return this.Redirect("/Admin/Roles/All");
+                }
             }
-            this.rolesService.Add(role);
-            return this.Redirect("/Admin/Roles/All");
+
+            return this.View(model);
         }
-
-        public IActionResult Edit(string id)
+        public async Task<IActionResult> Edit(string id)
         {
-            var roleFindById = this.rolesService.FindById(id);
+            var role = await this.roleManager.FindByIdAsync(id);
 
-            return View(new AspNetRoles
+            var model = new AspNetRoles
             {
-                Id=roleFindById.Id,
-                Name=roleFindById.Name
-            });
+                Id = role.Id,
+                Name = role.Name,
+            };
+
+            return this.View(model);
         }
 
         [HttpPost]
-        public IActionResult Edit(string id, AspNetRoles role)
+        public async Task<IActionResult> Edit(AspNetRoles model)
         {
-            if (!ModelState.IsValid)
+            var role = await this.roleManager.FindByIdAsync(model.Id);
+            role.Name = model.Name;
+            IdentityResult result = await this.roleManager.UpdateAsync(role);
+
+            if (result.Succeeded)
             {
-                return View(role);
+                return this.Redirect("/Admin/Roles/All");
             }
-            this.rolesService.Edit(id, role);
-            return this.Redirect("/Admin/Roles/All");
+            else
+            {
+                return this.View(model);
+            }
         }
     }
 }
