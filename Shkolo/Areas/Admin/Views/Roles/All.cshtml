@@ -1,0 +1,41 @@
+﻿@model ICollection<AspNetRoles>
+
+@{ViewData["Title"] = "All Roles";}
+
+<h2 class="display-4">Roles : </h2>
+<div class="row">
+
+    <table class="table">
+        <thead class="badge-info">
+            <tr>
+                <th scope="col">RoleId</th>
+                <th scope="col">Name</th>
+               
+            </tr>
+        </thead>
+        @foreach (var ro in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>@ro.Id</td>
+                    <td>@ro.Name</td>
+                    
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Roles",
+                            new { id = ro.Id, area = "Admin" },
+                            new { @class = "btn btn-success" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", "Users",
+                            new { id = ro.Id, area = "Admin" },
+                            new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
+                        </td>
+                    }
+                </tr>
+            </tbody>
+        }
+    </table>
+
+</div>

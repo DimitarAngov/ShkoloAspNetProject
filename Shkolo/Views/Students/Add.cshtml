@@ -2,7 +2,11 @@
 
 @{ViewData["Title"] = "Add Students";}
 
+<h2 class="text-center">Add Students</h2>
 
-    <h2 class="text-center">Add Students</h2>
-    <partial name="_StudentFormPartial" model="@Model" />
- 
+<partial name="_StudentFormPartial" model="@Model" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

@@ -8,6 +8,10 @@ namespace Shkolo
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Shkolo.Areas.Admin.Services.Claims;
+    using Shkolo.Areas.Admin.Services.Roles;
+    using Shkolo.Areas.Admin.Services.Users;
+    using Shkolo.Areas.Admin.Services.UsersServices;
     using Shkolo.Data;
     using Shkolo.Data.Datasets;
     using Shkolo.Data.Datasets.Services;
@@ -60,6 +64,9 @@ namespace Shkolo
             services.AddTransient<ISchedulesService,SchedulesService>();
             services.AddTransient<IScheduleHoursService, ScheduleHoursService>();
             services.AddTransient<IGradesService,GradesService>();
+            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IRolesService, RolesService>();
+            services.AddTransient<IClaimsService, ClaimsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -85,12 +92,12 @@ namespace Shkolo
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
                 {
+                    endpoints.MapControllerRoute(
+                           name: "Areas",
+                           pattern: "/{area:exists}/{controller=Home}/{action=All}/{id?}"
+                           );
                      endpoints.MapDefaultControllerRoute();
                      endpoints.MapRazorPages();
-                     endpoints.MapControllerRoute(
-                            name: "areas",
-                            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                            );
                 });
          }
     }

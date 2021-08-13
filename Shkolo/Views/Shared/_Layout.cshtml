@@ -18,6 +18,22 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="dropdown nav-item">
+                                <button class="btn btn-secondary dropdown-toggle m-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    ADMIN
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="nav-link dropdown-item" asp-area="Admin" asp-controller="Users" asp-action="All">All Users</a>
+                                    <a class="nav-link dropdown-item" asp-area="Admin" asp-controller="Roles" asp-action="All">All Roles</a>
+                                    <a class="nav-link dropdown-item" asp-area="Admin" asp-controller="Claims" asp-action="All">All Claims</a>
+                                    <a class="nav-link dropdown-item" asp-area="Admin" asp-controller="Users" asp-action="Add">Add Users</a>
+                                    <a class="nav-link dropdown-item" asp-area="Admin" asp-controller="Roles" asp-action="Add">Add Roles</a>
+                                    <a class="nav-link dropdown-item" asp-area="Admin" asp-controller="Claims" asp-action="Add">Add Claims</a>
+                                </div>
+                            </li>
+                        }
                         @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
                         {
                             <li class="dropdown nav-item">
@@ -49,16 +65,19 @@
                                 <a class="nav-link dropdown-item" asp-area="" asp-controller="Courses" asp-action="All">All Courses</a>
                                 <a class="nav-link dropdown-item" asp-area="" asp-controller="Schedules" asp-action="All">All Schedules</a>
 
+                                @if (User.IsInRole("Admin") || User.IsInRole("Teacher") || User.IsInRole("Student"))
+                                {
+                                    <a class="nav-link dropdown-item" asp-area="" asp-controller="ScheduleHours" asp-action="All">All Schedule Hours</a>
+                                }
                                 @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))
                                 {
-                                    <a class="nav-link dropdown-item" asp-area="" asp-controller="Students" asp-action="All">All Students</a>
                                     <a class="nav-link dropdown-item" asp-area="" asp-controller="Grades" asp-action="All">All Grades</a>
-                                    <a class="nav-link dropdown-item" asp-area="" asp-controller="ScheduleHours" asp-action="All">All Schedule Hours</a>
+                                    <a class="nav-link dropdown-item" asp-area="" asp-controller="Students" asp-action="All">All Students</a>
                                     <a class="nav-link dropdown-item" asp-area="" asp-controller="Students" asp-action="StudentAbsences">All Absences</a>
                                 }
                             </div>
                         </li>
-                        
+
                         @if (User.IsInRole("Admin") || User.IsInRole("Teacher") || User.IsInRole("Student"))
                         {
                             <li class="dropdown nav-item">
@@ -72,7 +91,7 @@
                                 </div>
                             </li>
                         }
-                        </ul>
+                    </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>

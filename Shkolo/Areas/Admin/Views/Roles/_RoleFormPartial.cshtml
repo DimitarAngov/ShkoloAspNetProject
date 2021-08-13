@@ -1,0 +1,14 @@
+﻿@model AspNetRoles
+
+<div class="row">
+    <div class="col-md-8 col-sm-12 offset-md-2">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Name">Name</label>
+                <input asp-for="Name" class="form-control" placeholder="Role Name">
+                <span asp-validation-for="Name" class="small text-danger"></span>
+            </div>
+            <input class="btn btn-primary float-right" type="submit" value="Save" />
+        </form>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+﻿@model ICollection<AspNetUserClaims>
+
+@{ViewData["Title"] = "All Claims";}
+
+<h2 class="display-4">Claims : </h2>
+<div class="row">
+
+    <table class="table">
+        <thead class="badge-info">
+            <tr>
+                <th scope="col">UserId</th>
+                <th scope="col">ClaimType</th>
+                <th scope="col">ClaimValue</th>
+            </tr>
+        </thead>
+        @foreach (var cl in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>@cl.UserId</td>
+                    <td>@cl.ClaimType</td>
+                    <td>@cl.ClaimValue</td>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Claims",
+                            new { id = cl.Id },
+                            new { @class = "btn btn-success" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", "Claims",
+                            new { id = cl.Id },
+                            new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
+                        </td>
+                    }
+                </tr>
+            </tbody>
+        }
+    </table>
+
+</div>

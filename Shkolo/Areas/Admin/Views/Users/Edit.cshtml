@@ -1,0 +1,11 @@
+﻿@model AspNetUsers
+
+@{ViewData["Title"] = "Edit Users";}
+
+<h2 class="text-center">Edit Users</h2>
+
+<partial name="_UserFormPartial" model="@Model" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

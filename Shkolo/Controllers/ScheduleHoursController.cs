@@ -2,20 +2,13 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Shkolo.Data;
-    using Shkolo.Data.Models;
     using Shkolo.Models.ScheduleHours;
-    using Shkolo.Models.Schedules;
-    using Shkolo.Models.Students;
     using Shkolo.Services.Grades;
     using Shkolo.Services.ScheduleHours;
-    using System.Collections.Generic;
-    using System.Linq;
     
-    [Authorize(Roles = "Admin,Teacher")]
     public class ScheduleHoursController:Controller
     {
-       
+    
         private readonly IScheduleHoursService scheduleHoursService;
         private readonly IGradesService gradesService;
         public ScheduleHoursController(IScheduleHoursService scheduleHoursService,IGradesService gradesService)
@@ -23,7 +16,8 @@
             this.scheduleHoursService = scheduleHoursService;
             this.gradesService=gradesService;
         }
-
+        
+        [Authorize(Roles = "Admin,Teacher,Student")]
         public IActionResult All(string teacherName, 
                                  string subjectName,
                                  string searchTermOne,
@@ -45,6 +39,7 @@
             });
         }
        
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult Add() => View(new ScheduleHourFormModel
         {
             SchStudent = this.scheduleHoursService.GetScheduleStudents(),
@@ -52,7 +47,8 @@
             SchTypeAbsence = this.scheduleHoursService.GetScheduleTypeAbsences(),
             SchTypeAbsenceReason = this.scheduleHoursService.GetScheduleTypeAbsenceReasons(),
         });
-
+        
+        [Authorize(Roles = "Admin,Teacher")]
         [HttpPost]
         public IActionResult Add(ScheduleHourFormModel scheduleHour)
         {
@@ -65,6 +61,7 @@
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult Edit(int id)
         {
             var scheduleHoursFindById = this.scheduleHoursService.FindById(id);
@@ -85,7 +82,7 @@
             });
         }
 
-
+        [Authorize(Roles = "Admin,Teacher")]
         [HttpPost]
         public IActionResult Edit(int id, ScheduleHourFormModel scheduleHour)
         {
@@ -96,7 +93,6 @@
 
             this.scheduleHoursService.Edit(id, scheduleHour);
             return RedirectToAction("All", "ScheduleHours");
-
         }
     }
 }

@@ -76,12 +76,21 @@
                     <td>@schh.Topics</td>
                     @if (schh.AbsenceStudentNimberInClass != 99)
                     {
-                        <td class="text-center">@schh.AbsenceStudentNimberInClass</td>
+                        @if (User.IsInRole("Student")&&
+                            User.HasClaim(c => c.Value == @schh.AbsenceStudentNimberInClass.ToString()))
+                        {
+                            <td class="text-center">@schh.AbsenceStudentNimberInClass</td>
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("Teacher")) 
+                        {
+                            <td class="text-center">@schh.AbsenceStudentNimberInClass</td>
+                        }
+
                     }
                     else
                     {
-                        <td class="text-center">-</td>
-                    }
+                    <td class="text-center">-</td>
+                }
                     @if (User.IsInRole("Admin") || (User.HasClaim(c => c.Value == schh.ScheduleSubjectName)))
                     {
                         <td>

@@ -1,5 +1,6 @@
 ﻿namespace Shkolo.Data
 {
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using Shkolo.Data.Models;
@@ -44,7 +45,7 @@
             });
                 
         }*/
-
+        //modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("UserLogin");
     }
 
     

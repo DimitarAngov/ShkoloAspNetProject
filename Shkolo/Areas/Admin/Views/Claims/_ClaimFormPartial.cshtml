@@ -1,0 +1,24 @@
+﻿@model AspNetUserClaims
+
+<div class="row">
+    <div class="col-md-8 col-sm-12 offset-md-2">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="UserId">UserId</label>
+                <input asp-for="UserId" class="form-control" placeholder="UserId">
+                <span asp-validation-for="UserId" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClaimType">ClaimType</label>
+                <input asp-for="ClaimType" class="form-control" placeholder="ClaimType">
+                <span asp-validation-for="ClaimType" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClaimValue">ClaimValue</label>
+                <input asp-for="ClaimValue" class="form-control" placeholder="ClaimValue">
+                <span asp-validation-for="ClaimValue" class="small text-danger"></span>
+            </div>
+            <input class="btn btn-primary float-right" type="submit" value="Save" />
+        </form>
+    </div>
+</div>

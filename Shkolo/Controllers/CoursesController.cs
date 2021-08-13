@@ -2,8 +2,8 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-   using Shkolo.Models.Courses;
-   using Shkolo.Services.Courses;
+    using Shkolo.Models.Courses;
+    using Shkolo.Services.Courses;
 
     [Authorize(Roles = "Admin")]
     public class CoursesController:Controller
