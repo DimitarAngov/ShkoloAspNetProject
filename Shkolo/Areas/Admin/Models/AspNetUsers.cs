@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shkolo.Areas.Admin.Models
 {
@@ -26,5 +27,7 @@ namespace Shkolo.Areas.Admin.Models
         public bool TwoFactorEnabled { get; set; }
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
+
+        public ICollection<AspNetUserRoles> ur { get; set; } = new HashSet<AspNetUserRoles>();
     }
 }

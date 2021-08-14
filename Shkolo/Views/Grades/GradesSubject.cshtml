@@ -46,15 +46,12 @@
 
                     @if (User.IsInRole("Student"))
                     {
-                        @foreach (var grStudent in Model.AllGrades)
-                        {
-                            if (!User.HasClaim(c => c.Value == grStudent.StudentPhoneNumber))
+                            if (!User.HasClaim(c => c.Value == grSubject.StudentPhoneNumber))
                             {
                                 continue;
                             }
-                        }
-
                     }
+
                     @while (temp != temp1)
                     {
                         <tr>

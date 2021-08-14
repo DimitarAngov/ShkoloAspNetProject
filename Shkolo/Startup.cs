@@ -10,8 +10,6 @@ namespace Shkolo
     using Microsoft.Extensions.Hosting;
     using Shkolo.Areas.Admin.Services.Claims;
     using Shkolo.Data;
-    using Shkolo.Data.Datasets;
-    using Shkolo.Data.Datasets.Services;
     using Shkolo.Data.Infrastructure;
     using Shkolo.Services.Courses;
     using Shkolo.Services.Grades;
@@ -52,7 +50,6 @@ namespace Shkolo
                     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                 });
 
-           /* services.AddTransient<ISeedDataServices, SeedDataServices>();*/
             services.AddTransient<IStatisticsService, StatisticsService>();
             services.AddTransient<ITeachersService,TeachersService>();
             services.AddTransient<ISubjectsService, SubjectsService>();

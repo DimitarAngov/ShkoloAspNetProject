@@ -156,6 +156,7 @@
                    AbsencesCount = o.Count(),
                })
                .OrderByDescending(x=>x.AbsencesCount)
+               .Where(x=>x.StudentName!="-")
                .ToList();
 
             return studentsAbsencesCount;

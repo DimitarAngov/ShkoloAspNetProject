@@ -115,6 +115,7 @@
 
         public IActionResult AddUsersRoles()
         {
+            
             return View();
         }
 
@@ -123,16 +124,28 @@
         {
             if (this.ModelState.IsValid)
             {
-                /*var user = await this.userManager.FindByIdAsync(model.UserId);
+                var user = await this.userManager.FindByIdAsync(model.UserId);
                 var role = await this.roleManager.FindByIdAsync(model.RoleId);
-                await userManager.CreateAsync(new IdentityUser(user.UserName));
-                await roleManager.CreateAsync(new IdentityRole(role.Name));
+                
+                if (user!=null&&role!=null)
+                {
+                    await userManager.CreateAsync(new IdentityUser(user.UserName));
+                    await roleManager.CreateAsync(new IdentityRole(role.Name));
+                    await userManager.AddToRoleAsync(user, role.Name);
+                }
+               
                 //var result= await userManager.AddToRoleAsync(user, role.Name);
-               await userManager.AddToRoleAsync(user, role.Name);
-
-                //return this.Redirect("/Admin/Users/AllUsersRoles");*/
-                return this.View(model);
+                //return this.Redirect("/Admin/Users/AllUsersRoles");
+                
+                    var ul = new AspNetUserRoles
+                    {
+                        RoleId = role.Id,
+                        UserId = user.Id
+                    };
+                               
+                return this.View(ul);
             }
+           
             return this.View(model);
         }
         

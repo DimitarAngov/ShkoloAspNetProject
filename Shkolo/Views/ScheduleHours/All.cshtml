@@ -74,7 +74,7 @@
                     <td>@schh.ScheduleSubjectName</td>
                     <td>@schh.ScheduleTeacherName</td>
                     <td>@schh.Topics</td>
-                    @if (schh.AbsenceStudentNimberInClass != 99)
+                    @if (schh.AbsenceStudentNimberInClass != 21)
                     {
                         @if (User.IsInRole("Student")&&
                             User.HasClaim(c => c.Value == @schh.AbsenceStudentNimberInClass.ToString()))
@@ -90,7 +90,7 @@
                     else
                     {
                     <td class="text-center">-</td>
-                }
+                    }
                     @if (User.IsInRole("Admin") || (User.HasClaim(c => c.Value == schh.ScheduleSubjectName)))
                     {
                         <td>
