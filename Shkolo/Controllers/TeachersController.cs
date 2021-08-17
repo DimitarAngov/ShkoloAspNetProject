@@ -20,7 +20,7 @@
             var teachers = this.teachersService.GetAllTeachers();
             return View(teachers);
         }
-        public IActionResult Add() => View();
+        public IActionResult Add(AddTeacherFormModel model) => View();
 
         public IActionResult Edit(int id)
         {

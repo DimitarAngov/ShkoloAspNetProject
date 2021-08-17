@@ -119,6 +119,12 @@
             return View();
         }
 
+        public IActionResult AllUsersRoles()
+        {
+
+            return View(new TempDataAttribute[0]);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddUsersRoles(AspNetUserRoles model)
         {
@@ -142,8 +148,8 @@
                         RoleId = role.Id,
                         UserId = user.Id
                     };
-                               
-                return this.View(ul);
+                this.TempData["ul"] = ul;
+                return this.Redirect("/Admin/Users/AllUsersRoles");
             }
            
             return this.View(model);

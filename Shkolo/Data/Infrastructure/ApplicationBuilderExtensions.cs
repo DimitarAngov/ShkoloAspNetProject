@@ -25,8 +25,8 @@
             var services = serviceScope.ServiceProvider;
           
             MigrateDatabase(db);
-            SeedDataServices(db, seeder);
-            SeedAdministrator(services);
+            //SeedDataServices(db, seeder);
+            //SeedAdministrator(services);
 
             return app;
         }

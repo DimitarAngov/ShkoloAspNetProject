@@ -8,6 +8,7 @@ namespace Shkolo
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Hosting.Internal;
     using Shkolo.Areas.Admin.Services.Claims;
     using Shkolo.Data;
     using Shkolo.Data.Infrastructure;
@@ -21,8 +22,9 @@ namespace Shkolo
     using Shkolo.Services.Teachers;
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+         public Startup(IConfiguration configuration)
             => Configuration = configuration;
+
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
@@ -59,6 +61,7 @@ namespace Shkolo
             services.AddTransient<IScheduleHoursService, ScheduleHoursService>();
             services.AddTransient<IGradesService,GradesService>();
             services.AddTransient<IClaimsService, ClaimsService>();
+            
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

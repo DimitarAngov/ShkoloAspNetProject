@@ -38,7 +38,14 @@
                 SearchTermTwo=searchTermTwo
             });
         }
-       
+
+        [Authorize(Roles = "Admin,Teacher")]
+        public IActionResult Delete(int Id)
+        {
+            this.scheduleHoursService.Delete(Id);
+            return this.Redirect("/ScheduleHours/All");
+        }
+
         [Authorize(Roles = "Admin,Teacher")]
         public IActionResult Add() => View(new ScheduleHourFormModel
         {
