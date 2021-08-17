@@ -7,7 +7,9 @@
     public class ScheduleHoursControllerTest
     {
         [Test]
-        public void GetAllBecomeShouldBeMapped(string teacherName,
+        [TestCase("Елза Василева Булакиева","Информационни технологии","","","")]
+        public void GetAllBecomeShouldBeMapped(
+                                 string teacherName,
                                  string subjectName,
                                  string searchTermOne,
                                  string searchTermTwo,

@@ -1,4 +1,6 @@
-﻿namespace Shkolo.Test.Controllers
+﻿using Shkolo.Controllers;
+
+namespace Shkolo.Test.Controllers
 {
     using MyTested.AspNetCore.Mvc;
     using Shkolo.Controllers;
@@ -7,13 +9,14 @@
     using Shkolo.Models.Teachers;
     using System.Collections.Generic;
     using System.Linq;
+    using Shkolo.Test.Data;
 
     [TestFixture]
-    public class TeachersControllerShould
+    public class TeachersControllerTest
     {
 
         [Test]
-        public void IndexShouldReturnCorrectViewWithModel()
+        public void AllShouldReturnCorrectViewWithModel()
             => MyController<TeachersController>
                 .Instance(controller => controller
                     .WithData(Enumerable.Range(1, 10).Select(i => new Teacher())))
@@ -92,6 +95,99 @@
             .Created();
         }
 
- 
-    } 
+        [Test]
+        [TestCase(1, "TeacherName 1")]
+        public void DeleteShouldHaveRestrictionsForAuthorizedUsers(int id, string name)
+            => MyController<TeachersController>
+                .Instance()
+                .WithData(TestData.GetTeacher(id, name))
+                .WithUser("Admin")
+                .Calling(c => c.Delete(id))
+                .ShouldReturn()
+                .Redirect(redirect => redirect
+                .To<TeachersController>(c => c.All()));
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(2)]
+        public void DeleteShouldReturnOkResultWhenAddressDeleted(int id)
+           => MyController<TeachersController>
+               .Instance(instance => instance
+                   .WithUser("Admin")
+                   .WithData(
+                   new Teacher { TeacherId=1,Name = "Сашка Андонова Николова" },
+                   new Teacher { TeacherId = 2, Name = "Елза Василева Булакиева" }))
+               .Calling(c => c.Delete(id))
+
+               .ShouldReturn()
+               .Ok();
+
+        [Test]
+        public void DeleteShouldReturnBadRequestWhenAddressIdIsNotExisting()
+            => MyController<TeachersController>
+                .Instance(instance => instance
+                    .WithUser())
+                .Calling(c => c.Delete(With.Any<int>()))
+                .ShouldReturn()
+                .BadRequest();
+
+        [Test]
+        [TestCase(1, "-")]
+        public void CreateShouldHaveInvalidModelStateWhenRequestModelIsInvalid(int id, string name)
+           => MyController<TeachersController>
+                .Calling(c => c.Add(new TeacherFormModel
+                {
+                    TeacherId = id,
+                    Name = name
+                }))
+                .ShouldHave()
+               .InvalidModelState();
+
+        [Test]
+        [TestCase(1, "Стефани Николаева Мездрова-Кирова")]
+        public void CreatePostShouldSaveArticleSetModelStateMessageAndRedirectWhenValidModelState(int id, string name)
+          => MyController<TeachersController>
+              .Instance()
+              .WithUser("mitko@abv.bg")
+              .Calling(c => c.Add(new TeacherFormModel
+              {
+                  TeacherId = id,
+                  Name = name
+              }))
+              .ShouldHave()
+              .ValidModelState()
+              .AndAlso()
+              .ShouldHave()
+               .Data(data => data
+                    .WithSet<Teacher>(teachers => teachers
+                        .Any(d =>
+                            d.TeacherId == id &&
+                            d.Name == name )))
+              /*.AndAlso()
+              .ShouldHave()
+              .TempData(tempData => tempData
+              .ContainingEntryWithValue("Стефани Николаева Мездрова-Кирова"))*/
+              .AndAlso()
+              .ShouldReturn()
+              .Redirect(redirect => redirect
+                  .To<HomeController>(c => c.Index()));
+
+        [Test]
+        [TestCase(3, "TeacherName 4")]
+        public void EditShouldReturnOkResultWhenValidModelState(int id, string editName)
+           => MyController<TeachersController>
+               .Instance(instance => instance
+                    .WithUser(new[] { "Admin" })
+                   .WithData(TestData.GetTeacher(3,"TeacherName 3")))
+               .Calling(c => c.Edit(id, new TeacherFormModel
+                {
+                   Name = editName
+                }))
+                .ShouldHave()
+                .ValidModelState()
+                .AndAlso()
+                .ShouldReturn()
+               .Ok();
+    }
 }
+       
