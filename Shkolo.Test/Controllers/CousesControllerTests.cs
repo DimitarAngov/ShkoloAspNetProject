@@ -13,16 +13,16 @@
 
         [Test]
         [TestCase(1, 20, 1, 9)]
-        public void AllShouldReturnCorrect()
-          => MyMvc
-          .Pipeline()
-          .ShouldMap("/Cources/All")
-          .To<CoursesController>(c => c.All())
-          .Which(controller => controller
-                  .WithData(Enumerable.Range(1, 10).Select(i => new Course())))
+        public void AllShouldReturnCorrect(int id, int subjectId, int typeSubjectId, int teacherId)
+           => MyController<CoursesController>
+                .Instance()
+                  .WithData(TestData.GetCourse(id, subjectId, typeSubjectId, teacherId))
+                  .Calling(c => c.All())
                   .ShouldReturn()
                   .View(view => view
-                  .WithModelOfType<IEnumerable<CourseFormModel>>());
+                  .WithModelOfType<List<AllCourseViewModel>>());
+               // .Redirect(redirect => redirect
+               // .To<CoursesController>(c => c.All()));
 
         [Test]
         [TestCase(1,20,1,9)]
@@ -37,19 +37,8 @@
                 .To<CoursesController>(c => c.All()));
 
         [Test]
-        [TestCase(1, 20, 1, 9)]
-        public void DeleteShouldReturnNotFoundWhenNonAuthorUser(int id, int subjectId, int typeSubjectId, int teacherId)
-           => MyController<CoursesController>
-               .Instance()
-               .WithUser(user => user.WithIdentifier("NonAuthor"))
-               .WithData(TestData.GetCourse(id, subjectId, typeSubjectId, teacherId))
-               .Calling(c => c.Delete(id))
-               .ShouldReturn()
-               .NotFound();
-
-        [Test]
         [TestCase(1,15,1,1)]
-        public void CreateShouldReturnCreatedResultWhenValidModelState(int id, int subjectid, int typeSubjectId, int teacherId)
+        public void AddShouldReturnCreatedResultWhenValidModelState(int id, int subjectid, int typeSubjectId, int teacherId)
            => MyController<CoursesController>
                .Instance(instance => instance
                .WithUser())

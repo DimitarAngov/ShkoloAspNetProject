@@ -8,26 +8,6 @@
     {
 
         [Test]
-        [TestCase("", "Стамен Станетков Пикянски", "Информационни технологии", "2,00")]
-        public void GetAllBecomeShouldBeMapped(
-            string searchTerm,
-            string studentName,
-            string subjectName,
-            string gradeStudent)
-        {
-            var search = new { searchTerm = $"SearchTerm ={searchTerm}",
-                               studentName=$"StudentName={studentName}",
-                               subjectName=$"SubjectName={subjectName}",
-                               gradeStudent=$"GradeStudent={gradeStudent}"};
-
-            var id = "SearchTerm =&StudentName=Стамен+Станетков+Пикянски&SubjectName=Информационни+технологии&GradeStudent=2.00";
-            var route = $"/Grades/All?{id}";
-            MyRouting
-               .Configuration().ShouldMap("/Grades/All/?SearchTerm=&StudentName=Стамен Станетков Пикянски&SubjectName=Информационни технологии&GradeStudent=2.00")
-               .To<GradesController>(c => c.All(searchTerm, studentName, subjectName, gradeStudent));
-               
-        }
-        [Test]
         public void GetAddBecomeShouldBeMapped()
            => MyRouting
                .Configuration()

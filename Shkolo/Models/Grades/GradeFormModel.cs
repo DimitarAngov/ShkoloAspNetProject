@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace Shkolo.Models.Grades
+﻿namespace Shkolo.Models.Grades
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     public class GradeFormModel
     {
         public int GradeId { get; set; }

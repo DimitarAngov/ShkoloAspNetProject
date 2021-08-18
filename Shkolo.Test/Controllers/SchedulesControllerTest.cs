@@ -6,6 +6,7 @@
     using Shkolo.Controllers;
     using Shkolo.Data.Models;
     using Shkolo.Models.Schedules;
+    using Shkolo.Test.Data;
     using System.Collections.Generic;
     using System.Linq;
     public class SchedulesControllerTest
@@ -23,8 +24,8 @@
                   .WithModelOfType<IEnumerable<AllScheduleViewModel>>());
 
         [Test]
-        [TestCase(1, 1, 4, 4,8)]
-        public void CreateShouldReturnCreatedResultWhenValidModelState(int id, int term_Number, int dayOfWeek, int schoolHour,int courseId)
+        [TestCase(1, 1, 4, 4, 8)]
+        public void AddShouldReturnCreatedResultWhenValidModelState(int id, int term_Number, int dayOfWeek, int schoolHour, int courseId)
            => MyController<SchedulesController>
                .Instance(instance => instance
                .WithUser())
@@ -42,5 +43,17 @@
                .ShouldReturn()
                .Redirect(redirect => redirect
                .To<HomeController>(c => c.Index()));
+
+        [Test]
+        [TestCase(1, 1, 4, 4, 8)]
+        public void DeleteShouldHaveRestrictionsForAuthorizedUsers(int id, int term_Number, int dayOfWeek, int schoolHour, int courseId)
+           => MyController<SchedulesController>
+               .Instance()
+               .WithUser()
+               .WithData(TestData.GetSchedule(id,term_Number, dayOfWeek, schoolHour, courseId))
+               .Calling(c => c.Delete(id))
+               .ShouldReturn()
+               .Redirect(redirect => redirect
+               .To<SchedulesController>(c => c.All()));
     }
 }
