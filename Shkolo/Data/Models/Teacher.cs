@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using static DataConstants;
     public class Teacher
     {
         public Teacher()
@@ -13,7 +14,7 @@
         public int TeacherId { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; }
         public ICollection<Course> Courses { get; set; }
         public ICollection<Diary> Diaries { get; set; }

@@ -3,6 +3,9 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using static DataConstants;
+    using static DataConstants.Student;
+
     public class Student
     {
         public Student()
@@ -13,25 +16,25 @@
         public int StudentId { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(10)]
+        [MaxLength(StudentDateOfBirthMin)]
         public string DateOfBirth { get; set; }
 
         [Required]
-        [MaxLength(20)]
+        [MaxLength(StudentPlaceOfBirthMax)]
         public string PlaceOfBirth { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(AdressMaxLength)]
         public string Address { get; set; }
 
-        [MaxLength(20)]
+        [MaxLength(PhoneNumberMaxLength)]
         public string Phone { get; set; }
 
-        [Range(1,12)]
+        [Range(NumInClassMin, NumInClassMax)]
         public int NumInClass { get; set; }
         public int ParentId { get; set; }
         public Parent Parent { get; set; }
@@ -40,13 +43,13 @@
         public int DiaryId { get; set; }
         public Diary Diary { get; set; }
 
-        [MaxLength(10)]
+        [MaxLength(StudentPageNum)]
         public string PageNumCompulsoryEducationBook { get; set; }
 
-        [MaxLength(30)]
+        [MaxLength(StudentOrderToLeave)]
         public string OrderToLeave { get; set; }
 
-        [MaxLength(20)]
+        [MaxLength(StudentOrderToEnroll)]
         public string OrderToEnroll { get; set; }
         public ICollection<StudentCourse> StudentsCourses { get; set; }
         public ICollection<ScheduleHour> ScheduleHours { get; set; }

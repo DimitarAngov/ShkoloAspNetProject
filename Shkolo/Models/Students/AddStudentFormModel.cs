@@ -2,53 +2,55 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using static Data.DataConstants;
+    using static Data.DataConstants.Student;
     public class AddStudentFormModel
     {
             public int StudentId { get; set; }
             [Required]
-            [MaxLength(50)]
+            [MaxLength(NameMaxLength)]
             public string Name { get; set; }
 
             [Required]
-            [MinLength(10)]
-            [MaxLength(10)]
+            [MinLength(DateMin)]
+            [MaxLength(DateMax)]
             public string DateOfBirth { get; set; }
 
             [Required]
-            [MaxLength(20)]
+            [MaxLength(StudentPlaceOfBirthMax)]
             public string PlaceOfBirth { get; set; }
 
             [Required]
-            [MaxLength(100)]
+            [MaxLength(AdressMaxLength)]
             public string Address { get; set; }
            
             [Required]
-            [MinLength(13)]
-            [MaxLength(13)]
+            [MinLength(PhoneNumberMinLength)]
+            [MaxLength(PhoneNumberMaxLength)]
             public string Phone { get; set; }
             
             [Required]
-            [MinLength(1)]
-            [MaxLength(2)]
+            [MinLength(StudentMinLength)]
+            [MaxLength(StudentMaxLength)]
             public int NumInClass { get; set; }
 
             [Required]
-            [MinLength(1)]
-            [MaxLength(2)]
+            [MinLength(StudentMinLength)]
+            [MaxLength(StudentMaxLength)]
 
             [Display(Name="Diary")]
             public string DiaryId { get; set; }
 
             [Required]
-            [MinLength(1)]
-            [MaxLength(2)]
+            [MinLength(StudentMinLength)]
+            [MaxLength(StudentMaxLength)]
             
             [Display(Name = "Parent")]
             public string ParentId { get; set; }
             
             [Required]
-            [MinLength(1)]
-            [MaxLength(2)]
+            [MinLength(StudentMinLength)]
+            [MaxLength(StudentMaxLength)]
 
             [Display(Name = "Doctor")]
             public string DoctorId { get; set; }

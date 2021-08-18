@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using static DataConstants;
+
     public class Parent
     {
         public Parent()
@@ -12,18 +14,18 @@
         public int ParentId { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(20)]
+        [MaxLength(PhoneNumberMaxLength)]
         public string Phone { get; set; }
 
-        [MaxLength(30)]
+        [MaxLength(EmailMaxLength)]
         [EmailAddress]
         public string Email { get; set; }
         
-        [MaxLength(100)]
+        [MaxLength(AdressMaxLength)]
         public string Address { get; set; }
         public ICollection<Student> Students { get; set; }
     }

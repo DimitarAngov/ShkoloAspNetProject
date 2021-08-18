@@ -3,6 +3,9 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using static DataConstants;
+    using static DataConstants.Schedule;
+
     public class Schedule
     {
         public Schedule()
@@ -11,19 +14,19 @@
         }
         public int ScheduleId { get; set; }
 
-        [Range(1,2)]
+        [Range(TermNumberMin, TermNumberMax)]
         public int Term_Number { get; set; }
 
-        [Range(1,5)]
+        [Range(ScheduleDayOfWeekMin, ScheduleDayOfWeekMax)]
         public int DayOfWeek { get; set; }
 
-        [Range(1,11)]
+        [Range(ScheduleSchoolHourMin, ScheduleSchoolHourMax)]
         public int SchoolHour { get; set; }
 
-        [MaxLength(10)]
+        [MaxLength(DateMax)]
         public string FromTime { get; set; }
 
-        [MaxLength(10)]
+        [MaxLength(DateMax)]
         public string ToTime { get; set; }
         public int CourseId { get; set; }
         public Course Course { get; set; }

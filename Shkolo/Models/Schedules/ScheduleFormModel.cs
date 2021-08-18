@@ -3,26 +3,28 @@
     using Shkolo.Models.Courses;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using static Data.DataConstants;
+    using static Data.DataConstants.Schedule;
     public class ScheduleFormModel
     {
         public int ScheduleId { get; set; }
 
         [Required]
-        [Range(1,2)]
+        [Range(TermNumberMin, TermNumberMax)]
         public int Term_Number { get; set; }
 
         [Required]
-        [Range(1, 5)]
+        [Range(ScheduleDayOfWeekMin, ScheduleDayOfWeekMax)]
         public int DayOfWeek { get; set; }
 
         [Required]
-        [Range(1, 11)]
+        [Range(ScheduleSchoolHourMin, ScheduleSchoolHourMax)]
         public int SchoolHour { get; set; }
 
-        [MaxLength(10)]
+        [MaxLength(DateMax)]
         public string FromTime { get; set; }
 
-        [MaxLength(10)]
+        [MaxLength(DateMax)]
         public string ToTime { get; set; }
         public int CourseId { get; set; }
         public IEnumerable<AllCourseViewModel> SchCourses { get; set; }

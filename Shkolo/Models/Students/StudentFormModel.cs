@@ -2,51 +2,54 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using static Data.DataConstants;
+    using static Data.DataConstants.Student;
+    using static Data.DataConstants.Diary;
     public class StudentFormModel
     {
             public int StudentId { get; set; }
             [Required]
-            [MaxLength(50)]
+            [MaxLength(NameMaxLength)]
             public string Name { get; set; }
 
             [Required]
-            [MinLength(10)]
-            [MaxLength(10)]
+            [MinLength(DateMin)]
+            [MaxLength(DateMax)]
             public string DateOfBirth { get; set; }
 
             [Required]
-            [MaxLength(20)]
+            [MaxLength(StudentPlaceOfBirthMax)]
             public string PlaceOfBirth { get; set; }
 
             [Required]
-            [MaxLength(100)]
+            [MaxLength(AdressMaxLength)]
             public string Address { get; set; }
            
             [Required]
-            [MinLength(13)]
-            [MaxLength(13)]
+            [MinLength(PhoneNumberMinLength)]
+            [MaxLength(PhoneNumberMaxLength)]
             public string Phone { get; set; }
             
             [Required]
-            [Range(1,100)]
+            [Range(NumInClassMin, NumInClassMax)]
             public int NumInClass { get; set; }
 
             [Required]
-            [Range(1, 12)]
+            [Range(DiaryIdMin, DiaryIdMax)]
 
             [Display(Name="Diary")]
             public int DiaryId { get; set; }
 
             [Required]
-            [Range(1, 100)]
+            [Range(DiaryParentIdMin, DiaryParentIdMax)]
 
-        [Display(Name = "Parent")]
+            [Display(Name = "Parent")]
             public int ParentId { get; set; }
             
             [Required]
-            [Range(1, 100)]
+            [Range(DiaryDoctorIdMin, DiaryDoctorIdMax)]
 
-        [Display(Name = "Doctor")]
+            [Display(Name = "Doctor")]
             public int DoctorId { get; set; }
 
             public IEnumerable<StudentDiaryModel> SDiaries { get; set; }

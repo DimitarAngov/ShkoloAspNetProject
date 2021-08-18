@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using static DataConstants.TypeGrade;
+
     public class TypeGrade
     {
         public TypeGrade()
@@ -12,7 +14,7 @@
         public int TypeGradeId { get; set; }
        
         [Required]
-        [MaxLength(25)]
+        [MaxLength(TypeGradeNameMaxLength)]
         public string Name { get; set; }
         public ICollection<Grade> Grades { get; set; }
     }

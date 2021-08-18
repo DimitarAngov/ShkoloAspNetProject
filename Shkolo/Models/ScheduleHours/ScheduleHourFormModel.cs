@@ -4,31 +4,34 @@
     using Shkolo.Models.Students;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using static Data.DataConstants;
+    using static Data.DataConstants.ScheduleHour;
+    using static Data.DataConstants.Student;
     public class ScheduleHourFormModel
     {
         public int ScheduleHourId { get; set; }
 
         [Required]
-        [MaxLength(10)]
+        [MaxLength(DateMax)]
         public string Date { get; set; }
         
         [Required]
         public int ScheduleId { get; set; }
         
         [Required]
-        [MaxLength(1000)]
+        [MaxLength(ScheduleHourTopicsMaxLength)]
         public string Topics { get; set; }
 
         [Required]
-        [Range(1,2000)]
+        [Range(StudentIdMin, StudentIdMax)]
         public int StudentId { get; set; }
         
         [Required]
-        [Range(1,10)]
+        [Range(TypeAbsenceIdMin, TypeAbsenceIdMax)]
         public int TypeAbsenceId { get; set; }
 
         [Required]
-        [Range(1,10)]
+        [Range(TypeAbsenceReasonIdMin, TypeAbsenceReasonIdMax)]
         public int TypeAbsenceReasonId { get; set; }
 
         public IEnumerable<AllScheduleViewModel> SchSchedule { get; set; }

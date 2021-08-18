@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using static DataConstants;
+
     public class Doctor
     {
         public Doctor()
@@ -12,11 +14,11 @@
         public int DoctorId { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(20)]
+        [MaxLength(PhoneNumberMaxLength)]
         public string Phone { get; set; }
         public ICollection<Student> Students { get; set; }
     }

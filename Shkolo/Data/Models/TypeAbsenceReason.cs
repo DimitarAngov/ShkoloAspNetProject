@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
+    using static DataConstants.TypeAbsence;
     public class TypeAbsenceReason
     {
         public TypeAbsenceReason()
@@ -11,7 +13,7 @@
         public int TypeAbsenceReasonId { get; set; }
 
         [Required]
-        [MaxLength(12)]
+        [MaxLength(TypeAbsenceNameMaxLength)]
         public string Name { get; set; }
 
         public ICollection<ScheduleHour> ScheduleHours { get; set; }

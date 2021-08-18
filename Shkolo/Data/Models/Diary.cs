@@ -4,16 +4,19 @@
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
+    using static DataConstants;
+    using static DataConstants.Diary;
+
     public class Diary
     {        
         public int DiaryId { get; set; }
         public string SchoolName { get; set; }
         
-        [Range(1,12)]
+        [Range(NumInClassMin, NumInClassMax)]
         public int NumberClassName { get; set; }
        
         [Required]
-        [MaxLength(1)]
+        [MaxLength(DiaryClassNameMaxLength)]
         public string ClassName { get; set; }
 
         [DisplayName("ClassTeacher")] 

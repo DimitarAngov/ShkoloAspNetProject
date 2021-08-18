@@ -2,32 +2,36 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using static DataConstants;
+    using static DataConstants.ScheduleHour;
+    using static DataConstants.Student;
+
     public class ScheduleHour
     {
         public int ScheduleHourId { get; set; }
 
         [Required]
-        [MaxLength(10)]
+        [MaxLength(DateMax)]
         public string Date { get; set; }
         public int ScheduleId { get; set; }
         public Schedule Schedule { get; set; }
 
         [Required]
-        [MaxLength(1000)]
+        [MaxLength(ScheduleHourTopicsMaxLength)]
         public string Topics { get; set; }
        
         [Required]
-        [Range(1,2000)]
+        [Range(StudentIdMin,StudentIdMax)]
         public int StudentId { get; set; }
         public Student Student { get; set; }
 
         [Required]
-        [Range(1,10)]
+        [Range(TypeAbsenceIdMin, TypeAbsenceIdMax)]
         public int TypeAbsenceId { get; set; }
         public TypeAbsence TypeAbsence { get; set; }
 
         [Required]
-        [Range(1,10)]
+        [Range(TypeAbsenceReasonIdMin, TypeAbsenceReasonIdMax)]
         public int TypeAbsenceReasonId { get; set; }
         public TypeAbsenceReason TypeAbsenceReason { get; set; }
     }
