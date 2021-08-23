@@ -1,4 +1,4 @@
-﻿@model ICollection<AspNetUserRoles>
+﻿@model ICollection<AspNetUserRoleViewModel>
 
 @{ViewData["Title"] = "All Users and Roles";}
 
@@ -12,29 +12,30 @@
                 <th scope="col">RoleName</th>
             </tr>
         </thead>
-        @foreach (var usR in Model)
-        {
-            <tbody>
-                <tr>
-                    <td>@usR.AspNetUsers.UserName</td>
-                    <td>@usR.AspNetRoles.Name</td>
-             
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", "UsersRoles",
-                            new { area = "Admin", id = usR.UserRolesId },
-                            new { @class = "btn btn-success" })
-                        </td>
-                        <td>
-                            @Html.ActionLink("Delete", "Delete", "UsersRoles",
-                            new { area = "Admin", id = usR.UserRolesId },
-                            new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
-                        </td>
-                    }
-                </tr>
-            </tbody>
-        }
-    </table>
+        <tbody>
+            @foreach (var user in Model)
+            {
+            <tr>
 
+                <td>@user.User.UserName</td>
+                <td>
+                    @foreach (var role in user.UserRoles)
+                    {
+                        @role<br>
+                    }
+                </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        @Html.ActionLink("Delete", "DeleteUserRoles", "Users",
+                        new { id = user.User.Id, area = "Admin" },
+                        new { @class = "btn btn-danger", onclick = "alert('This Row Will be Deleted');" })
+                    </td>
+                }
+            </tr>
+             }
+         </tbody>
+     </table>
 </div>
+
+

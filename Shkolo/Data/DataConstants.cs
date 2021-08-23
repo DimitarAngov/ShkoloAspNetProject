@@ -3,7 +3,7 @@
     public class DataConstants
     {
         public const int NumInClassMin = 1;
-        public const int NumInClassMax = 12;
+        public const int NumInClassMax = 30;
 
         public const int TermNumberMin = 1;
         public const int TermNumberMax = 2;
@@ -28,6 +28,8 @@
         public class Diary
         {
             public const int DiaryClassNameMaxLength = 1;
+            public const int DiaryClassNumberMin = 1;
+            public const int DiaryClassNumberMax = 12;
             public const int DiaryIdMin = 1;
             public const int DiaryIdMax = 50;
             public const int DiaryParentIdMin = 1;

@@ -7,13 +7,18 @@
     using System.Linq;
     using System.Threading.Tasks;
     using System;
+    using System.Collections.Generic;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Shkolo.Data;
 
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
+        
         private readonly UserManager<IdentityUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        
         public UsersController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
@@ -119,11 +124,22 @@
             return View();
         }
 
-        public IActionResult AllUsersRoles()
+        public async Task<IActionResult> AllUsersRolesAsync()
         {
+            List<IdentityUser> users = userManager.Users.ToList();
+            List<AspNetUserRoleViewModel> model= new List<AspNetUserRoleViewModel>();
 
-            return View(new TempDataAttribute[0]);
+            //var user = await this.userManager.FindByNameAsync(TempData["userName"].ToString());
+            //var role = await this.roleManager.FindByNameAsync(TempData["roleName"].ToString());
+
+            foreach (var user in users)
+            {
+                 var userRoles = await this.userManager.GetRolesAsync(user);
+                 model.Add(new AspNetUserRoleViewModel{User= user,UserRoles= userRoles});
+            }
+            return View(model);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> AddUsersRoles(AspNetUserRoles model)
@@ -139,22 +155,28 @@
                     await roleManager.CreateAsync(new IdentityRole(role.Name));
                     await userManager.AddToRoleAsync(user, role.Name);
                 }
-               
-                //var result= await userManager.AddToRoleAsync(user, role.Name);
-                //return this.Redirect("/Admin/Users/AllUsersRoles");
-                
-                    var ul = new AspNetUserRoles
-                    {
-                        RoleId = role.Id,
-                        UserId = user.Id
-                    };
-                this.TempData["ul"] = ul;
+          
+               /* TempData["userName"]= user.UserName;
+                TempData["roleName"] = role.Name;*/
+
                 return this.Redirect("/Admin/Users/AllUsersRoles");
             }
            
             return this.View(model);
         }
-        
+
+        public async Task<IActionResult> DeleteUserRoles(string id)
+        {
+            var user = await this.userManager.FindByIdAsync(id);
+            var userRoles = await this.userManager.GetRolesAsync(user);
+           
+            if (user != null)
+            {
+                await this.userManager.RemoveFromRolesAsync(user,userRoles);
+            }
+            return this.Redirect("/Admin/Users/AllUsersRoles");
+        }
+
     }
 
 }

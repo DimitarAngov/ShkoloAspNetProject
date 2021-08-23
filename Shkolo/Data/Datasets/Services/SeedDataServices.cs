@@ -168,7 +168,9 @@
 
                 for (int i = 0; i < studentTemp.Length - 17; i += 18)
                 {
-                    db.Parents.Add(
+                    if (db.Parents.Any() == false)
+                    {
+                        db.Parents.Add(
                                  new Parent
                                  {
                                      Name = studentTemp[i + 9],
@@ -176,12 +178,16 @@
                                      Email = studentTemp[i + 11],
                                      Address = studentTemp[i + 12],
                                  });
-                    db.Doctors.Add(
+                    }
+                    if (db.Doctors.Any() == false)
+                    {
+                        db.Doctors.Add(
                                  new Doctor
                                  {
                                      Name = studentTemp[i + 13],
                                      Phone = studentTemp[i + 14],
                                  });
+                    }
                 }
 
                 for (int i = 0; i < studentTemp.Length - 17; i += 18)

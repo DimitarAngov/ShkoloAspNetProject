@@ -4,6 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>aspnet-Shkolo-D79B7A17-681B-4710-A137-3FB1F96C7845</UserSecretsId>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+	
   </PropertyGroup>
 
   <ItemGroup>
